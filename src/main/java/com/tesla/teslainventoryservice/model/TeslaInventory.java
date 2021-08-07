@@ -1,11 +1,11 @@
 package com.tesla.teslainventoryservice.model;
 
 public class TeslaInventory {
-    private String name;
+    private final String name;
 
-    private String url;
+    private final String url;
 
-    private String imageUrl;
+    private final String imageUrl;
 
     public TeslaInventory(final String name, final String url, final String imageUrl) {
         this.name = name;

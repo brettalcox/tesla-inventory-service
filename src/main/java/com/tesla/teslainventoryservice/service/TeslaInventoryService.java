@@ -20,7 +20,9 @@ public class TeslaInventoryService {
 
     private final SlackClient slackClient;
 
-    public TeslaInventoryService(final TeslaInfoClient teslaInfoClient, TeslaInventoryScheduleConfig teslaInventoryScheduleConfig, SlackClient slackClient) {
+    public TeslaInventoryService(final TeslaInfoClient teslaInfoClient,
+                                 final TeslaInventoryScheduleConfig teslaInventoryScheduleConfig,
+                                 final SlackClient slackClient) {
         this.teslaInfoClient = teslaInfoClient;
         this.teslaInventoryScheduleConfig = teslaInventoryScheduleConfig;
         this.slackClient = slackClient;

@@ -15,7 +15,7 @@ public class SlackClient {
     private final URI slackNotificationUrl;
 
 
-    public SlackClient(RestTemplate restTemplate, @Value("${tesla.notification-url}") URI slackNotificationUrl) {
+    public SlackClient(final RestTemplate restTemplate, @Value("${tesla.notification-url}") final URI slackNotificationUrl) {
         this.restTemplate = restTemplate;
         this.slackNotificationUrl = slackNotificationUrl;
     }

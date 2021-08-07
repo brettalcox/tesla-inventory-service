@@ -21,7 +21,7 @@ tesla:
       sort: PA
       min: 0
       max: 99999999
-  notification-url: ${NOTIFICATION_URL}
+  notification-url: ${ERROR_NOTIFICATION_URL}
 server:
   servlet:
     context-path: /tesla-inventory-service

@@ -1,9 +1,9 @@
 package com.tesla.teslainventoryservice.model;
 
 public class SlackPost {
-    private String text;
+    private final String text;
 
-    public SlackPost(String text) {
+    public SlackPost(final String text) {
         this.text = text;
     }
 

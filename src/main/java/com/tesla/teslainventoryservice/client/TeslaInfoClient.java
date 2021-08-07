@@ -21,7 +21,7 @@ public class TeslaInfoClient {
 
     private final URI teslaUrl;
 
-    public TeslaInfoClient(final RestTemplate restTemplate, @Value("${tesla.url}") URI teslaUrl) {
+    public TeslaInfoClient(final RestTemplate restTemplate, @Value("${tesla.url}") final URI teslaUrl) {
         this.restTemplate = restTemplate;
         this.teslaUrl = teslaUrl;
     }
