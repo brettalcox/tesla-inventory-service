@@ -1,0 +1,27 @@
+tesla:
+  url: https://tesla-info.com/for-sale.php
+  job-templates:
+    -
+      sale: New
+      model: M3
+      variant: SR
+      minYear: 2021
+      maxYear: 2021
+      country: US
+      sort: PA
+      min: 0
+      max: 99999999
+    -
+      sale: New
+      model: M3
+      variant: LR
+      minYear: 2021
+      maxYear: 2021
+      country: US
+      sort: PA
+      min: 0
+      max: 99999999
+  notification-url: ${NOTIFICATION_URL}
+server:
+  servlet:
+    context-path: /tesla-inventory-service
