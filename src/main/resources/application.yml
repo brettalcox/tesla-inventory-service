@@ -25,6 +25,9 @@ tesla:
 cache:
   names:
     inventory: 900
+spring:
+  redis:
+    host: redis
 server:
   port: 8081
   servlet:

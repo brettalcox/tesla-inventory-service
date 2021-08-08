@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  web:
+    image: "brettalcox/tesla-inventory:1.1.0"
+    ports:
+      - "8080:8080"
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
