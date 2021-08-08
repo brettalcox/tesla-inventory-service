@@ -1,5 +1,8 @@
 package com.tesla.teslainventoryservice.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class TeslaInventory {
     private final String name;
 
@@ -7,7 +10,10 @@ public class TeslaInventory {
 
     private final String imageUrl;
 
-    public TeslaInventory(final String name, final String url, final String imageUrl) {
+    @JsonCreator
+    public TeslaInventory(@JsonProperty("name") final String name,
+                          @JsonProperty("url") final String url,
+                          @JsonProperty("imageUrl") final String imageUrl) {
         this.name = name;
         this.url = url;
         this.imageUrl = imageUrl;
