@@ -125,10 +125,6 @@ public class TeslaModelRequest {
                 ", minYear='" + minYear + '\'' +
                 ", maxYear='" + maxYear + '\'' +
                 ", country='" + country + '\'' +
-                ", state='" + state + '\'' +
-                ", sort='" + sort + '\'' +
-                ", min='" + min + '\'' +
-                ", max='" + max + '\'' +
                 '}';
     }
 }

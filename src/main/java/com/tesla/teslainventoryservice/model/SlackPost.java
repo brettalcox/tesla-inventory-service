@@ -10,4 +10,18 @@ public class SlackPost {
     public String getText() {
         return text;
     }
+
+    public static class Builder {
+        private final StringBuilder stringBuilder = new StringBuilder();
+
+        public synchronized Builder addLine(final String text) {
+            stringBuilder.append("\n");
+            stringBuilder.append(text);
+            return this;
+        }
+
+        public SlackPost build() {
+            return new SlackPost(stringBuilder.toString());
+        }
+    }
 }

@@ -20,7 +20,7 @@ public class SlackClient {
         this.slackNotificationUrl = slackNotificationUrl;
     }
 
-    public void sendSlackNotification(final String text) {
-        restTemplate.postForEntity(slackNotificationUrl, new SlackPost(text), Void.class);
+    public void sendSlackNotification(final SlackPost slackPost) {
+        restTemplate.postForEntity(slackNotificationUrl, slackPost, Void.class);
     }
 }
