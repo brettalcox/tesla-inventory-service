@@ -22,9 +22,12 @@ tesla:
       min: 0
       max: 99999999
   notification-url: ${ERROR_NOTIFICATION_URL}
+  error-notification-url: ${NOTIFICATION_URL}
 cache:
   names:
     inventory: 900
+    error: 60
+    last-seen: 86400
 spring:
   redis:
     host: redis

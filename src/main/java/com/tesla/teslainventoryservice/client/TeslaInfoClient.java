@@ -50,7 +50,7 @@ public class TeslaInfoClient {
                     .map(e -> new TeslaInventory(e.selectFirst("h2").text(), e.selectFirst("a").attr("href"), e.selectFirst("img").attr("src")))
                     .collect(Collectors.toList());
         } catch (final Exception e) {
-            throw new RuntimeException("FUCK!", e);
+            throw new RuntimeException("Failed to retrieve Tesla inventory!", e);
         }
     }
 }

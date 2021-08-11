@@ -25,17 +25,21 @@ public class TeslaInventoryService {
 
     private final TeslaInventoryScheduleConfig teslaInventoryScheduleConfig;
 
-    private final SlackClient slackClient;
+    private final SlackClient inventoryNotificationSlackClient;
+
+    private final SlackClient errorSlackClient;
 
     private final CacheManager cacheManager;
 
     public TeslaInventoryService(final TeslaInfoClient teslaInfoClient,
                                  final TeslaInventoryScheduleConfig teslaInventoryScheduleConfig,
-                                 final SlackClient slackClient,
+                                 final SlackClient inventoryNotificationSlackClient,
+                                 final SlackClient errorSlackClient,
                                  final CacheManager cacheManager) {
         this.teslaInfoClient = teslaInfoClient;
         this.teslaInventoryScheduleConfig = teslaInventoryScheduleConfig;
-        this.slackClient = slackClient;
+        this.inventoryNotificationSlackClient = inventoryNotificationSlackClient;
+        this.errorSlackClient = errorSlackClient;
         this.cacheManager = cacheManager;
     }
 
@@ -46,25 +50,30 @@ public class TeslaInventoryService {
     @Scheduled(cron = "0/30 * * * * *")
     public void teslaInventoryJob() {
         LOGGER.info("Starting inventory check for {}", teslaInventoryScheduleConfig.getJobTemplates());
-        final List<TeslaInventory> teslaInventories = teslaInventoryScheduleConfig.getJobTemplates()
-                .stream()
-                .map(teslaInfoClient::getTeslaInventory)
-                .flatMap(Collection::stream)
-                .collect(Collectors.toList());
+        try {
+            final List<TeslaInventory> teslaInventories = teslaInventoryScheduleConfig.getJobTemplates()
+                    .stream()
+                    .map(teslaInfoClient::getTeslaInventory)
+                    .flatMap(Collection::stream)
+                    .collect(Collectors.toList());
 
-        teslaInventories
-                .stream()
-                .filter(ti -> cacheManager.getCache("inventory").get(ti.getUrl()) == null)
-                .forEach(ti -> slackClient.sendSlackNotification(
-                        new SlackPost.Builder()
-                                .addLine(ti.getName())
-                                .addLine(ti.getUrl())
-                                .addLine(ti.getImageUrl())
-                                .build()
-                ));
+            teslaInventories
+                    .stream()
+                    .filter(ti -> cacheManager.getCache("inventory").get(ti.getUrl()) == null)
+                    .forEach(ti -> inventoryNotificationSlackClient.sendSlackNotification(
+                            new SlackPost.Builder()
+                                    .addLine(ti.getName())
+                                    .addLine(ti.getUrl())
+                                    .addLine(ti.getImageUrl())
+                                    .build()
+                    ));
 
-        teslaInventories
-                .stream()
-                .forEach(ti -> cacheManager.getCache("inventory").putIfAbsent(ti.getUrl(), ti));
+            teslaInventories
+                    .forEach(ti -> cacheManager.getCache("inventory").putIfAbsent(ti.getUrl(), ti));
+            cacheManager.getCache("error").put("isError", false);
+        } catch (final Exception e) {
+            errorSlackClient.sendSlackNotification(new SlackPost(e.toString()));
+            cacheManager.getCache("error").put("isError", true);
+        }
     }
 }
