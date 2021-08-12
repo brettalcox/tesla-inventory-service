@@ -1,5 +1,6 @@
 package com.tesla.teslainventoryservice.model;
 
+import java.net.URI;
 import java.util.Objects;
 
 public class TeslaModelRequest {
@@ -22,6 +23,8 @@ public class TeslaModelRequest {
     private String min = "0";
 
     private String max = "99999999";
+
+    private URI notificationUrl;
 
     public String getSale() {
         return sale;
@@ -101,6 +104,14 @@ public class TeslaModelRequest {
 
     public void setMax(String max) {
         this.max = max;
+    }
+
+    public URI getNotificationUrl() {
+        return notificationUrl;
+    }
+
+    public void setNotificationUrl(URI notificationUrl) {
+        this.notificationUrl = notificationUrl;
     }
 
     @Override

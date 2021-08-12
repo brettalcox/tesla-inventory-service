@@ -11,6 +11,7 @@ tesla:
       sort: PA
       min: 0
       max: 99999999
+      notification-url: ${NOTIFICATION_URL}
     -
       sale: New
       model: M3
@@ -21,8 +22,19 @@ tesla:
       sort: PA
       min: 0
       max: 99999999
-  notification-url: ${ERROR_NOTIFICATION_URL}
-  error-notification-url: ${NOTIFICATION_URL}
+      notification-url: ${NOTIFICATION_URL}
+    -
+      sale: New
+      model: M3
+      variant: Perf
+      minYear: 2021
+      maxYear: 2021
+      country: US
+      sort: PA
+      min: 0
+      max: 99999999
+      notification-url: ${NOTIFICATION_URL}
+  error-notification-url: ${ERROR_NOTIFICATION_URL}
 cache:
   names:
     inventory: 900
