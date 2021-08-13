@@ -5,6 +5,8 @@ import com.tesla.teslainventoryservice.model.TeslaModelRequest;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -16,6 +18,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class TeslaInfoClient {
+    private static final Logger LOGGER = LoggerFactory.getLogger(TeslaInfoClient.class);
 
     private final RestTemplate restTemplate;
 
@@ -50,6 +53,7 @@ public class TeslaInfoClient {
                     .map(e -> new TeslaInventory(e.selectFirst("h2").text(), e.selectFirst("a").attr("href"), e.selectFirst("img").attr("src")))
                     .collect(Collectors.toList());
         } catch (final Exception e) {
+            LOGGER.error("Failed to retrieve Tesla inventory", e);
             throw new RuntimeException("Failed to retrieve Tesla inventory!", e);
         }
     }
