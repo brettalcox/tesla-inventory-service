@@ -1,5 +1,6 @@
 tesla:
-  url: https://tesla-info.com/for-sale.php
+  inventory-with-pictures-url: https://tesla-info.com/for-sale.php
+  detailed-inventory-url: https://tesla-info.com/inventory.php
   job-templates:
     -
       sale: New

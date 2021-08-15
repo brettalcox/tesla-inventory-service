@@ -3,10 +3,7 @@ package com.tesla.teslainventoryservice.service;
 import com.tesla.teslainventoryservice.client.SlackClient;
 import com.tesla.teslainventoryservice.client.TeslaInfoClient;
 import com.tesla.teslainventoryservice.config.TeslaInventoryScheduleConfig;
-import com.tesla.teslainventoryservice.model.InventoryNotification;
-import com.tesla.teslainventoryservice.model.SlackPost;
-import com.tesla.teslainventoryservice.model.TeslaInventory;
-import com.tesla.teslainventoryservice.model.TeslaModelRequest;
+import com.tesla.teslainventoryservice.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,16 +42,52 @@ public class TeslaInventoryService {
     }
 
     public List<TeslaInventory> getTeslaInventory(final TeslaModelRequest teslaModelRequest) {
-        return teslaInfoClient.getTeslaInventory(teslaModelRequest);
+        return teslaInfoClient.getTeslaInventoryWithPictures(teslaModelRequest);
     }
 
     @Scheduled(cron = "0/30 * * * * *")
-    public void teslaInventoryJob() {
+    public void detailedTeslaInventoryJob() {
         LOGGER.info("Starting inventory check for {}", teslaInventoryScheduleConfig.getJobTemplates());
         try {
             teslaInventoryScheduleConfig.getJobTemplates()
                     .stream()
-                    .map(tmr -> new InventoryNotification(teslaInfoClient.getTeslaInventory(tmr), tmr.getNotificationUrl()))
+                    .map(tmr -> new DetailedInventoryNotification(teslaInfoClient.getDetailedTeslaInventory(tmr), tmr.getNotificationUrl()))
+                    .forEach(in -> {
+                        in.getTeslaInventories()
+                                .stream()
+                                .filter(ti -> cacheManager.getCache("inventory").get(ti.getUrl()) == null)
+                                .forEach(ti -> {
+                                    final SlackPost slackPost = new SlackPost.Builder()
+                                            .addLine(ti.getUrl())
+                                            .addLine("*Model:* " + ti.getName())
+                                            .addLine("*Year:* " + ti.getAttributes().get("Year"))
+                                            .addLine("*Price:* " + ti.getAttributes().get("Price"))
+                                            .addLine("*Wheels:* " + ti.getAttributes().get("Wheels"))
+                                            .addLine("*Interior:* " + ti.getAttributes().get("Interior"))
+                                            .addLine("*Colour:* " + ti.getAttributes().get("Colour"))
+                                            .addLine("*State:* " + ti.getAttributes().get("State"))
+                                            .addLine("*Miles:* " + ti.getAttributes().get("Miles"))
+                                            .build();
+                                    slackClient.sendSlackNotification(
+                                            slackPost,
+                                            in.getNotificationUrl()
+                                    );
+                                    cacheManager.getCache("inventory").put(ti.getUrl(), ti);
+                                });
+                    });
+            cacheManager.getCache("error").put("isError", false);
+        } catch (final Exception e) {
+            slackClient.sendSlackNotification(new SlackPost(e.toString()), errorNotificationUrl);
+            cacheManager.getCache("error").put("isError", true);
+        }
+    }
+
+    public void teslaInventoryWithPicturesJob() {
+        LOGGER.info("Starting inventory check for {}", teslaInventoryScheduleConfig.getJobTemplates());
+        try {
+            teslaInventoryScheduleConfig.getJobTemplates()
+                    .stream()
+                    .map(tmr -> new InventoryNotification(teslaInfoClient.getTeslaInventoryWithPictures(tmr), tmr.getNotificationUrl()))
                     .forEach(in -> {
                         in.getTeslaInventories()
                             .stream()
