@@ -1,5 +1,6 @@
 package com.tesla.teslainventoryservice.service;
 
+import com.tesla.teslainventoryservice.client.OfficialTeslaApiClient;
 import com.tesla.teslainventoryservice.client.SlackClient;
 import com.tesla.teslainventoryservice.client.TeslaInfoClient;
 import com.tesla.teslainventoryservice.config.TeslaInventoryScheduleConfig;
@@ -21,6 +22,8 @@ public class TeslaInventoryService {
 
     private final TeslaInfoClient teslaInfoClient;
 
+    private final OfficialTeslaApiClient officialTeslaApiClient;
+
     private final TeslaInventoryScheduleConfig teslaInventoryScheduleConfig;
 
     private final SlackClient slackClient;
@@ -29,23 +32,57 @@ public class TeslaInventoryService {
 
     private final URI errorNotificationUrl;
 
+    private final URI generalInventoryUrl;
+
     public TeslaInventoryService(final TeslaInfoClient teslaInfoClient,
+                                 final OfficialTeslaApiClient officialTeslaApiClient,
                                  final TeslaInventoryScheduleConfig teslaInventoryScheduleConfig,
                                  final SlackClient slackClient,
                                  final CacheManager cacheManager,
-                                 @Value("${tesla.error-notification-url}") URI errorNotificationUrl) {
+                                 final @Value("${tesla.error-notification-url}") URI errorNotificationUrl,
+                                 final @Value("${tesla.general-inventory-url}") URI generalInventoryUrl) {
         this.teslaInfoClient = teslaInfoClient;
+        this.officialTeslaApiClient = officialTeslaApiClient;
         this.teslaInventoryScheduleConfig = teslaInventoryScheduleConfig;
         this.slackClient = slackClient;
         this.cacheManager = cacheManager;
         this.errorNotificationUrl = errorNotificationUrl;
+        this.generalInventoryUrl = generalInventoryUrl;
     }
 
     public List<TeslaInventory> getTeslaInventory(final TeslaModelRequest teslaModelRequest) {
         return teslaInfoClient.getTeslaInventoryWithPictures(teslaModelRequest);
     }
 
-    @Scheduled(cron = "0/10 * * * * *")
+    @Scheduled(cron = "0/5 * * * * *")
+    public void officialTeslaInventoryJob() {
+        LOGGER.info("Starting inventory check for 2021 Model 3");
+        try {
+            officialTeslaApiClient.getOfficialTeslaInventory()
+                    .getResults()
+                    .stream()
+                    .filter(ti -> cacheManager.getCache("inventory").get(ti.getVin()) == null)
+                    .forEach(ti -> {
+                        final SlackPost slackPost = new SlackPost.Builder()
+                                .addLine(ti.getUrl())
+                                .addLine("*Model:* " + ti.getName())
+                                .addLine("*Price:* " + ti.getTotalPrice())
+                                .addLine("*OTD Price:* " + ti.getOutTheDoorPrice())
+                                .addLine("*Wheels:* " + ti.getWheels())
+                                .addLine("*Interior:* " + ti.getInterior())
+                                .addLine("*Paint:* " + ti.getPaint())
+                                .addLine("*Location:* " + ti.getLocation())
+                                .build();
+                        slackClient.sendSlackNotification(slackPost, generalInventoryUrl);
+                        cacheManager.getCache("inventory").put(ti.getVin(), ti);
+                    });
+        } catch (final Exception e) {
+            slackClient.sendSlackNotification(new SlackPost(e.toString()), errorNotificationUrl);
+            cacheManager.getCache("error").put("isError", true);
+        }
+    }
+
+    @Deprecated
     public void detailedTeslaInventoryJob() {
         LOGGER.info("Starting inventory check for {}", teslaInventoryScheduleConfig.getJobTemplates());
         try {
@@ -82,6 +119,7 @@ public class TeslaInventoryService {
         }
     }
 
+    @Deprecated
     public void teslaInventoryWithPicturesJob() {
         LOGGER.info("Starting inventory check for {}", teslaInventoryScheduleConfig.getJobTemplates());
         try {

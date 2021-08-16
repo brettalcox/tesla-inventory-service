@@ -62,9 +62,9 @@ public class TeslaInfoClient {
 
         final List<DetailedTeslaInventory> detailedTeslaInventories = new ArrayList<>();
         if (elements.size() > headers.length) {
-            for (int i = 12; i < elements.size(); i+=12) {
+            for (int i = headers.length; i < elements.size(); i+=headers.length) {
                 final Map<String, String> attributes = new HashMap<>();
-                for (int j = i; j < i + 12; j++) {
+                for (int j = i; j < i + headers.length; j++) {
                     attributes.put(headers[j - i], elements.get(j).text());
                 }
                 final Element inventoryAnchorElement = elements.get(i).selectFirst("a");
