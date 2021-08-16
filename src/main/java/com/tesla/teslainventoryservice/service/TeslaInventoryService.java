@@ -76,6 +76,7 @@ public class TeslaInventoryService {
                         slackClient.sendSlackNotification(slackPost, generalInventoryUrl);
                         cacheManager.getCache("inventory").put(ti.getVin(), ti);
                     });
+            cacheManager.getCache("error").put("isError", false);
         } catch (final Exception e) {
             slackClient.sendSlackNotification(new SlackPost(e.toString()), errorNotificationUrl);
             cacheManager.getCache("error").put("isError", true);
