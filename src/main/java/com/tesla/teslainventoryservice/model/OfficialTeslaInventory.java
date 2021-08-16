@@ -129,7 +129,7 @@ public class OfficialTeslaInventory {
     }
 
     public String getUrl() {
-        return String.format("https://www.tesla.com/m3/order/%s", getVin());
+        return String.format("https://www.tesla.com/m3/order/%s#payment", getVin());
     }
 
     public String getName() {
