@@ -45,7 +45,7 @@ public class TeslaInventoryService {
         return teslaInfoClient.getTeslaInventoryWithPictures(teslaModelRequest);
     }
 
-    @Scheduled(cron = "0/30 * * * * *")
+    @Scheduled(cron = "0/10 * * * * *")
     public void detailedTeslaInventoryJob() {
         LOGGER.info("Starting inventory check for {}", teslaInventoryScheduleConfig.getJobTemplates());
         try {
