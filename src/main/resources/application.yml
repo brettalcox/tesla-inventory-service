@@ -1,43 +1,10 @@
 tesla:
-  inventory-with-pictures-url: https://tesla-info.com/for-sale.php
-  detailed-inventory-url: https://tesla-info.com/inventory.php
   official-api-url: 'https://www.tesla.com/inventory/api/v1/inventory-results?query=%7B%22query%22%3A%7B%22model%22%3A%22m3%22%2C%22condition%22%3A%22new%22%2C%22options%22%3A%7B%7D%2C%22arrangeby%22%3A%22Relevance%22%2C%22order%22%3A%22desc%22%2C%22market%22%3A%22US%22%2C%22language%22%3A%22en%22%2C%22super_region%22%3A%22north%20america%22%2C%22lng%22%3A-118.4148498%2C%22lat%22%3A34.0571327%2C%22zip%22%3A%2290067%22%2C%22range%22%3A500%2C%22region%22%3A%22CA%22%7D%2C%22offset%22%3A0%2C%22count%22%3A50%2C%22outsideOffset%22%3A0%2C%22outsideSearch%22%3Atrue%7D'
-  job-templates:
-    -
-      sale: New
-      model: M3
-      variant: SR
-      minYear: 2021
-      maxYear: 2021
-      country: US
-      sort: PA
-      min: 0
-      max: 99999999
-      notification-url: ${NOTIFICATION_URL}
-    -
-      sale: New
-      model: M3
-      variant: LR
-      minYear: 2021
-      maxYear: 2021
-      country: US
-      sort: PA
-      min: 0
-      max: 99999999
-      notification-url: ${NOTIFICATION_URL}
-    -
-      sale: New
-      model: M3
-      variant: Perf
-      minYear: 2021
-      maxYear: 2021
-      country: US
-      sort: PA
-      min: 0
-      max: 99999999
-      notification-url: ${NOTIFICATION_URL}
+  notification-endpoints:
+    SRPRWD: ${US_M3SRPRWD}
+    LRAWD: ${US_M3LRAWD}
+    LRAWDP: ${US_M3LRAWDP}
   error-notification-url: ${ERROR_NOTIFICATION_URL}
-  general-inventory-url: ${GENERAL_INVENTORY_URL}
 cache:
   names:
     inventory: 900

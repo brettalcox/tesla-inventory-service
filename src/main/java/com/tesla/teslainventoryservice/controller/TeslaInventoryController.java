@@ -1,11 +1,8 @@
 package com.tesla.teslainventoryservice.controller;
 
-import com.tesla.teslainventoryservice.model.TeslaInventory;
-import com.tesla.teslainventoryservice.model.TeslaModelRequest;
 import com.tesla.teslainventoryservice.service.TeslaInventoryService;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("/inventory")
 @RestController
@@ -15,10 +12,5 @@ public class TeslaInventoryController {
 
     public TeslaInventoryController(final TeslaInventoryService teslaInventoryService) {
         this.teslaInventoryService = teslaInventoryService;
-    }
-
-    @GetMapping
-    public List<TeslaInventory> getTeslaInventory(final TeslaModelRequest teslaModelRequest) {
-        return teslaInventoryService.getTeslaInventory(teslaModelRequest);
     }
 }

@@ -40,6 +40,9 @@ public class OfficialTeslaInventory {
     @JsonProperty("TitleStatus")
     private String titleStatus;
 
+    @JsonProperty("TRIM")
+    private List<String> trim;
+
     public String getVin() {
         return vin;
     }
@@ -128,8 +131,16 @@ public class OfficialTeslaInventory {
         this.titleStatus = titleStatus;
     }
 
+    public String getTrim() {
+        return trim.get(0);
+    }
+
+    public void setTrim(List<String> trim) {
+        this.trim = trim;
+    }
+
     public String getUrl() {
-        return String.format("https://www.tesla.com/m3/order/%s#payment", getVin());
+        return String.format("<https://www.tesla.com/m3/order/%s#payment>", getVin());
     }
 
     public String getName() {
@@ -166,6 +177,8 @@ public class OfficialTeslaInventory {
                 ", year='" + year + '\'' +
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
+                ", titleStatus='" + titleStatus + '\'' +
+                ", trim=" + trim +
                 '}';
     }
 }
