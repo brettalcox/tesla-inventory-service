@@ -174,7 +174,11 @@ public class OfficialTeslaInventory {
     }
 
     public String getUrl() {
-        return String.format("<https://www.tesla.com/m3/order/%s#payment>", getVin());
+        if ("CA".equals(countryCode)) {
+            return String.format("<https://www.tesla.com/en_CA/m3/order/%s#payment>", getVin());
+        } else {
+            return String.format("<https://www.tesla.com/m3/order/%s#payment>", getVin());
+        }
     }
 
     public String getName() {
