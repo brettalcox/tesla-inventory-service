@@ -13,13 +13,13 @@ import java.util.Map;
 @ConfigurationProperties(prefix = "tesla")
 @EnableScheduling
 public class TeslaInventoryScheduleConfig {
-    private Map<String, URI> notificationEndpoints;
+    private Map<String, Map<String, URI>> notificationEndpoints;
 
-    public Map<String, URI> getNotificationEndpoints() {
+    public Map<String, Map<String, URI>> getNotificationEndpoints() {
         return notificationEndpoints;
     }
 
-    public void setNotificationEndpoints(Map<String, URI> notificationEndpoints) {
+    public void setNotificationEndpoints(Map<String, Map<String, URI>> notificationEndpoints) {
         this.notificationEndpoints = notificationEndpoints;
     }
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public class OfficialTeslaInventory {
 
@@ -14,10 +15,13 @@ public class OfficialTeslaInventory {
     private String trimName;
 
     @JsonProperty("TotalPrice")
-    private long totalPrice;
+    private Long totalPrice;
+
+    @JsonProperty("InventoryPrice")
+    private Long inventoryPrice;
 
     @JsonProperty("MonroneyPrice")
-    private long outTheDoorPrice;
+    private Long outTheDoorPrice;
 
     @JsonProperty("PAINT")
     private List<String> paint;
@@ -43,6 +47,12 @@ public class OfficialTeslaInventory {
     @JsonProperty("TRIM")
     private List<String> trim;
 
+    @JsonProperty("CurrencyCode")
+    private String currencyCode;
+
+    @JsonProperty("CountryCode")
+    private String countryCode;
+
     public String getVin() {
         return vin;
     }
@@ -59,16 +69,24 @@ public class OfficialTeslaInventory {
         this.trimName = trimName;
     }
 
-    public long getTotalPrice() {
-        return totalPrice;
+    public String getTotalPrice() {
+        return String.format("%s %s", Optional.ofNullable(totalPrice).orElse(inventoryPrice), currencyCode);
+    }
+
+    public long getInventoryPrice() {
+        return inventoryPrice;
+    }
+
+    public void setInventoryPrice(long inventoryPrice) {
+        this.inventoryPrice = inventoryPrice;
     }
 
     public void setTotalPrice(long totalPrice) {
         this.totalPrice = totalPrice;
     }
 
-    public long getOutTheDoorPrice() {
-        return outTheDoorPrice;
+    public String getOutTheDoorPrice() {
+        return String.format("%s %s", Optional.ofNullable(outTheDoorPrice).map(String::valueOf).orElse("<none>"), currencyCode);
     }
 
     public void setOutTheDoorPrice(long outTheDoorPrice) {
@@ -139,6 +157,22 @@ public class OfficialTeslaInventory {
         this.trim = trim;
     }
 
+    public String getCurrencyCode() {
+        return currencyCode;
+    }
+
+    public void setCurrencyCode(String currencyCode) {
+        this.currencyCode = currencyCode;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
     public String getUrl() {
         return String.format("<https://www.tesla.com/m3/order/%s#payment>", getVin());
     }
@@ -179,6 +213,7 @@ public class OfficialTeslaInventory {
                 ", state='" + state + '\'' +
                 ", titleStatus='" + titleStatus + '\'' +
                 ", trim=" + trim +
+                ", currencyCode='" + currencyCode + '\'' +
                 '}';
     }
 }

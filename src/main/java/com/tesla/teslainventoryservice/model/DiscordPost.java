@@ -28,4 +28,11 @@ public class DiscordPost {
             return new DiscordPost(stringBuilder.toString());
         }
     }
+
+    @Override
+    public String toString() {
+        return "DiscordPost{" +
+                "content='" + content + '\'' +
+                '}';
+    }
 }

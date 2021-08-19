@@ -1,7 +1,8 @@
 package com.tesla.teslainventoryservice.client;
 
 import com.tesla.teslainventoryservice.model.TeslaApiResponse;
-import org.springframework.beans.factory.annotation.Value;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -9,18 +10,16 @@ import java.net.URI;
 
 @Component
 public class OfficialTeslaApiClient {
+    private static final Logger LOGGER = LoggerFactory.getLogger(OfficialTeslaApiClient.class);
 
     private final RestTemplate restTemplate;
 
-    private final URI officialApiUrl;
-
-    public OfficialTeslaApiClient(final RestTemplate restTemplate,
-                                  @Value("${tesla.official-api-url}") final URI officialApiUrl) {
+    public OfficialTeslaApiClient(final RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
-        this.officialApiUrl = officialApiUrl;
     }
 
-    public TeslaApiResponse getOfficialTeslaInventory() {
-        return restTemplate.getForObject(officialApiUrl, TeslaApiResponse.class);
+    public TeslaApiResponse getOfficialTeslaInventory(final URI inventoryURI) {
+        LOGGER.debug("Calling {}", inventoryURI);
+        return restTemplate.getForObject(inventoryURI, TeslaApiResponse.class);
     }
 }
