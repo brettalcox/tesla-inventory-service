@@ -53,6 +53,9 @@ public class OfficialTeslaInventory {
     @JsonProperty("CountryCode")
     private String countryCode;
 
+    @JsonProperty("Model")
+    private String model;
+
     public String getVin() {
         return vin;
     }
@@ -173,11 +176,19 @@ public class OfficialTeslaInventory {
         this.countryCode = countryCode;
     }
 
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
     public String getUrl() {
         if ("CA".equals(countryCode)) {
-            return String.format("<https://www.tesla.com/en_CA/m3/order/%s#payment>", getVin());
+            return String.format("<https://www.tesla.com/en_CA/%s/order/%s#payment>", getModel(), getVin());
         } else {
-            return String.format("<https://www.tesla.com/m3/order/%s#payment>", getVin());
+            return String.format("<https://www.tesla.com/%s/order/%s#payment>", getModel(), getVin());
         }
     }
 
@@ -208,6 +219,7 @@ public class OfficialTeslaInventory {
                 "vin='" + vin + '\'' +
                 ", trimName='" + trimName + '\'' +
                 ", totalPrice=" + totalPrice +
+                ", inventoryPrice=" + inventoryPrice +
                 ", outTheDoorPrice=" + outTheDoorPrice +
                 ", paint=" + paint +
                 ", wheels=" + wheels +
@@ -218,6 +230,8 @@ public class OfficialTeslaInventory {
                 ", titleStatus='" + titleStatus + '\'' +
                 ", trim=" + trim +
                 ", currencyCode='" + currencyCode + '\'' +
+                ", countryCode='" + countryCode + '\'' +
+                ", model='" + model + '\'' +
                 '}';
     }
 }

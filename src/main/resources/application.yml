@@ -1,27 +1,50 @@
-tesla:
-  us-url: 'https://www.tesla.com/inventory/api/v1/inventory-results?query=%7B%22query%22%3A%7B%22model%22%3A%22m3%22%2C%22condition%22%3A%22new%22%2C%22options%22%3A%7B%7D%2C%22arrangeby%22%3A%22Relevance%22%2C%22order%22%3A%22desc%22%2C%22market%22%3A%22US%22%2C%22language%22%3A%22en%22%2C%22super_region%22%3A%22north%20america%22%2C%22lng%22%3A-118.4148498%2C%22lat%22%3A34.0571327%2C%22zip%22%3A%2290067%22%2C%22range%22%3A500%2C%22region%22%3A%22CA%22%7D%2C%22offset%22%3A0%2C%22count%22%3A50%2C%22outsideOffset%22%3A0%2C%22outsideSearch%22%3Atrue%7D'
-  ca-url: 'https://www.tesla.com/inventory/api/v1/inventory-results?query=%7B%22query%22%3A%7B%22model%22%3A%22m3%22%2C%22condition%22%3A%22new%22%2C%22options%22%3A%7B%7D%2C%22arrangeby%22%3A%22Relevance%22%2C%22order%22%3A%22desc%22%2C%22market%22%3A%22CA%22%2C%22language%22%3A%22en%22%2C%22super_region%22%3A%22north%20america%22%2C%22lng%22%3A-79.45280869999999%2C%22lat%22%3A43.7251083%2C%22zip%22%3A%22M6A%202T9%22%2C%22range%22%3A200%2C%22region%22%3A%22ON%22%7D%2C%22offset%22%3A0%2C%22count%22%3A50%2C%22outsideOffset%22%3A0%2C%22outsideSearch%22%3Atrue%7D'
-  notification-endpoints:
-    US:
-      SRPRWD: ${US_M3SRPRWD}
-      LRAWD: ${US_M3LRAWD}
-      LRAWDP: ${US_M3LRAWDP}
-      UNKNOWN: ${US_UNKNOWN}
-    CA:
-      SRPRWD: ${CA_M3SRPRWD}
-      LRAWD: ${CA_M3LRAWD}
-      LRAWDP: ${CA_M3LRAWDP}
-      UNKNOWN: ${CA_UNKNOWN}
-  error-notification-url: ${ERROR_NOTIFICATION_URL}
-cache:
-  names:
-    inventory: 3600
-    error: 60
-    last-seen: 86400
 spring:
   redis:
     host: redis
+cache:
+  names:
+    inventory: 14400
+    error: 60
+    last-seen: 86400
 server:
   port: 8080
   servlet:
     context-path: /tesla-inventory-service
+tesla:
+  error-notification-url: ${ERROR_NOTIFICATION_URL}
+  m3-us-url: 'https://www.tesla.com/inventory/api/v1/inventory-results?query=%7B%22query%22%3A%7B%22model%22%3A%22m3%22%2C%22condition%22%3A%22new%22%2C%22options%22%3A%7B%7D%2C%22arrangeby%22%3A%22Relevance%22%2C%22order%22%3A%22desc%22%2C%22market%22%3A%22US%22%2C%22language%22%3A%22en%22%2C%22super_region%22%3A%22north%20america%22%2C%22lng%22%3A-118.4148498%2C%22lat%22%3A34.0571327%2C%22zip%22%3A%2290067%22%2C%22range%22%3A500%2C%22region%22%3A%22CA%22%7D%2C%22offset%22%3A0%2C%22count%22%3A50%2C%22outsideOffset%22%3A0%2C%22outsideSearch%22%3Atrue%7D'
+  m3-ca-url: 'https://www.tesla.com/inventory/api/v1/inventory-results?query=%7B%22query%22%3A%7B%22model%22%3A%22m3%22%2C%22condition%22%3A%22new%22%2C%22options%22%3A%7B%7D%2C%22arrangeby%22%3A%22Relevance%22%2C%22order%22%3A%22desc%22%2C%22market%22%3A%22CA%22%2C%22language%22%3A%22en%22%2C%22super_region%22%3A%22north%20america%22%2C%22lng%22%3A-79.45280869999999%2C%22lat%22%3A43.7251083%2C%22zip%22%3A%22M6A%202T9%22%2C%22range%22%3A200%2C%22region%22%3A%22ON%22%7D%2C%22offset%22%3A0%2C%22count%22%3A50%2C%22outsideOffset%22%3A0%2C%22outsideSearch%22%3Atrue%7D'
+  my-us-url: 'https://www.tesla.com/inventory/api/v1/inventory-results?query=%7B%22query%22%3A%7B%22model%22%3A%22my%22%2C%22condition%22%3A%22new%22%2C%22options%22%3A%7B%7D%2C%22arrangeby%22%3A%22Relevance%22%2C%22order%22%3A%22desc%22%2C%22market%22%3A%22US%22%2C%22language%22%3A%22en%22%2C%22super_region%22%3A%22north%20america%22%2C%22lng%22%3A-118.4148498%2C%22lat%22%3A34.0571327%2C%22zip%22%3A%2290067%22%2C%22range%22%3A500%2C%22region%22%3A%22CA%22%7D%2C%22offset%22%3A0%2C%22count%22%3A50%2C%22outsideOffset%22%3A0%2C%22outsideSearch%22%3Atrue%7D'
+#  my-ca-url: 'https://www.tesla.com/inventory/api/v1/inventory-results?query=%7B%22query%22%3A%7B%22model%22%3A%22my%22%2C%22condition%22%3A%22new%22%2C%22options%22%3A%7B%7D%2C%22arrangeby%22%3A%22Relevance%22%2C%22order%22%3A%22desc%22%2C%22market%22%3A%22CA%22%2C%22language%22%3A%22en%22%2C%22super_region%22%3A%22north%20america%22%2C%22lng%22%3A-79.45280869999999%2C%22lat%22%3A43.7251083%2C%22zip%22%3A%22M6A%202T9%22%2C%22range%22%3A200%2C%22region%22%3A%22ON%22%7D%2C%22offset%22%3A0%2C%22count%22%3A50%2C%22outsideOffset%22%3A0%2C%22outsideSearch%22%3Atrue%7D'
+  notification-endpoints:
+    US:
+      M3SRPRWD: ${US_M3SRPRWD}
+      M3LRAWD: ${US_M3LRAWD}
+      M3LRAWDP: ${US_M3LRAWDP}
+      MYLRAWD: ${US_MYLRAWD}
+      MYLRAWDP: ${US_MYLRAWDP}
+      UNKNOWN: ${US_UNKNOWN}
+    CA:
+      M3SRPRWD: ${CA_M3SRPRWD}
+      M3LRAWD: ${CA_M3LRAWD}
+      M3LRAWDP: ${CA_M3LRAWDP}
+      UNKNOWN: ${CA_UNKNOWN}
+---
+spring:
+  profiles: test
+tesla:
+  notification-endpoints:
+    US:
+      M3SRPRWD: ${US_M3SRPRWD}
+      M3LRAWD: ${US_M3LRAWD}
+      M3LRAWDP: ${US_M3LRAWDP}
+      MYLRAWD: ${US_MYLRAWD}
+      MYLRAWDP: ${US_MYLRAWDP}
+      UNKNOWN: ${US_UNKNOWN}
+    CA:
+      M3SRPRWD: ${CA_M3SRPRWD}
+      M3LRAWD: ${CA_M3LRAWD}
+      M3LRAWDP: ${CA_M3LRAWDP}
+      MYLRAWD: ${CA_MYLRAWD}
+      MYLRAWDP: ${CA_MYLRAWDP}
+      UNKNOWN: ${CA_UNKNOWN}

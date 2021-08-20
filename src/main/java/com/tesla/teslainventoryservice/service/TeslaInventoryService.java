@@ -58,6 +58,7 @@ public class TeslaInventoryService {
         try {
             countryUrlConfig.getCountryUrls()
                     .forEach(inventoryUrl -> {
+                        LOGGER.debug("Invoking {}", inventoryUrl);
                         officialTeslaApiClient.getOfficialTeslaInventory(inventoryUrl)
                                 .getResults()
                                 .stream()
@@ -74,7 +75,7 @@ public class TeslaInventoryService {
                                             .addLine("*Paint:* " + ti.getPaint())
                                             .addLine("*Location:* " + ti.getLocation())
                                             .build();
-                                    discordClient.sendNotification(discordPost, Optional.ofNullable(teslaInventoryScheduleConfig.getNotificationEndpoints().get(ti.getCountryCode()).get(ti.getTrim()))
+                                    discordClient.sendNotification(discordPost, Optional.ofNullable(teslaInventoryScheduleConfig.getNotificationEndpoints().get(ti.getCountryCode()).get(ti.getModel().toUpperCase().concat(ti.getTrim())))
                                             .orElseGet(() -> teslaInventoryScheduleConfig.getNotificationEndpoints().get(ti.getCountryCode()).get("UNKNOWN")));
                                     LOGGER.info("{}", discordPost);
                                     cacheManager.getCache("inventory").put(ti.getVin(), ti);
