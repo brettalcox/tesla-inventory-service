@@ -32,6 +32,8 @@ tesla:
 ---
 spring:
   profiles: test
+  redis:
+    host: localhost
 tesla:
   notification-endpoints:
     US:

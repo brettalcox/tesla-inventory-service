@@ -56,6 +56,12 @@ public class OfficialTeslaInventory {
     @JsonProperty("Model")
     private String model;
 
+    @JsonProperty("Odometer")
+    private String odometer;
+
+    @JsonProperty("IsDemo")
+    private String isDemo;
+
     public String getVin() {
         return vin;
     }
@@ -184,6 +190,22 @@ public class OfficialTeslaInventory {
         this.model = model;
     }
 
+    public String getOdometer() {
+        return odometer;
+    }
+
+    public void setOdometer(String odometer) {
+        this.odometer = odometer;
+    }
+
+    public String getIsDemo() {
+        return isDemo;
+    }
+
+    public void setIsDemo(String isDemo) {
+        this.isDemo = isDemo;
+    }
+
     public String getUrl() {
         if ("CA".equals(countryCode)) {
             return String.format("<https://www.tesla.com/en_CA/%s/order/%s#payment>", getModel(), getVin());
@@ -193,7 +215,7 @@ public class OfficialTeslaInventory {
     }
 
     public String getName() {
-        return String.format("%s %s %s", getTitleStatus(), getYear(), getTrimName());
+        return String.format("%s %s %s %s", getTitleStatus(), getYear(), getModel(), getTrimName());
     }
 
     public String getLocation() {

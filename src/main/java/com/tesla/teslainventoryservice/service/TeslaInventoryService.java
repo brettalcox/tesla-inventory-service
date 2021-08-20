@@ -67,13 +67,15 @@ public class TeslaInventoryService {
                                     LOGGER.info("{}", ti);
                                     final DiscordPost discordPost = new DiscordPost.Builder()
                                             .addLine(ti.getUrl())
-                                            .addLine("*Model:* " + ti.getName())
-                                            .addLine("*Price:* " + ti.getTotalPrice())
-                                            .addLine("*OTD Price:* " + ti.getOutTheDoorPrice())
-                                            .addLine("*Wheels:* " + ti.getWheels())
-                                            .addLine("*Interior:* " + ti.getInterior())
-                                            .addLine("*Paint:* " + ti.getPaint())
-                                            .addLine("*Location:* " + ti.getLocation())
+                                            .addLine("**Model:** " + ti.getName())
+                                            .addLine("**Price:** " + ti.getTotalPrice())
+                                            .addLine("**OTD Price:** " + ti.getOutTheDoorPrice())
+                                            .addLine("**Wheels:** " + ti.getWheels())
+                                            .addLine("**Interior:** " + ti.getInterior())
+                                            .addLine("**Paint:** " + ti.getPaint())
+                                            .addLine("**Odometer:** " + ti.getOdometer())
+                                            .addLine("**Demo** " + ti.getIsDemo())
+                                            .addLine("**Location:** " + ti.getLocation())
                                             .build();
                                     discordClient.sendNotification(discordPost, Optional.ofNullable(teslaInventoryScheduleConfig.getNotificationEndpoints().get(ti.getCountryCode()).get(ti.getModel().toUpperCase().concat(ti.getTrim())))
                                             .orElseGet(() -> teslaInventoryScheduleConfig.getNotificationEndpoints().get(ti.getCountryCode()).get("UNKNOWN")));
