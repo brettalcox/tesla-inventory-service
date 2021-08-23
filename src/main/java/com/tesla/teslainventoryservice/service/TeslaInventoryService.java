@@ -5,7 +5,9 @@ import com.tesla.teslainventoryservice.client.OfficialTeslaApiClient;
 import com.tesla.teslainventoryservice.client.SlackClient;
 import com.tesla.teslainventoryservice.config.CountryUrlConfig;
 import com.tesla.teslainventoryservice.config.TeslaInventoryScheduleConfig;
+import com.tesla.teslainventoryservice.model.CountryModel;
 import com.tesla.teslainventoryservice.model.DiscordPost;
+import com.tesla.teslainventoryservice.model.OfficialTeslaInventory;
 import com.tesla.teslainventoryservice.model.SlackPost;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +19,11 @@ import org.springframework.stereotype.Service;
 import java.net.URI;
 import java.util.Optional;
 
+/**
+ * The design in this class is kind of gross, but I'm just taking the easy route here. I want the notifications to be
+ * as quick as possible, while also leveraging the ease of Spring @Scheduled. Broke each model out into their own
+ * checks so the Discord notifications don't have to wait for the rest of the inventory checks
+ */
 @Service
 public class TeslaInventoryService {
 
@@ -53,40 +60,67 @@ public class TeslaInventoryService {
     }
 
     @Scheduled(cron = "0/5 * * * * *")
-    public void officialTeslaInventoryJob() {
-        LOGGER.info("Starting inventory check for 2021 Model 3");
+    public void USModel3() {
+        LOGGER.info("Starting inventory check for US 2021 Model 3");
         try {
-            countryUrlConfig.getCountryUrls()
-                    .forEach(inventoryUrl -> {
-                        LOGGER.debug("Invoking {}", inventoryUrl);
-                        officialTeslaApiClient.getOfficialTeslaInventory(inventoryUrl)
-                                .getResults()
-                                .stream()
-                                .filter(ti -> cacheManager.getCache("inventory").get(ti.getVin()) == null)
-                                .forEach(ti -> {
-                                    LOGGER.info("{}", ti);
-                                    final DiscordPost discordPost = new DiscordPost.Builder()
-                                            .addLine(ti.getUrl())
-                                            .addLine("**Model:** " + ti.getName())
-                                            .addLine("**Price:** " + ti.getTotalPrice())
-                                            .addLine("**OTD Price:** " + ti.getOutTheDoorPrice())
-                                            .addLine("**Wheels:** " + ti.getWheels())
-                                            .addLine("**Interior:** " + ti.getInterior())
-                                            .addLine("**Paint:** " + ti.getPaint())
-                                            .addLine("**Odometer:** " + ti.getOdometer())
-                                            .addLine("**Demo** " + ti.getIsDemo())
-                                            .addLine("**Location:** " + ti.getLocation())
-                                            .build();
-                                    discordClient.sendNotification(discordPost, Optional.ofNullable(teslaInventoryScheduleConfig.getNotificationEndpoints().get(ti.getCountryCode()).get(ti.getModel().toUpperCase().concat(ti.getTrim())))
-                                            .orElseGet(() -> teslaInventoryScheduleConfig.getNotificationEndpoints().get(ti.getCountryCode()).get("UNKNOWN")));
-                                    LOGGER.info("{}", discordPost);
-                                    cacheManager.getCache("inventory").put(ti.getVin(), ti);
-                                });
-                        cacheManager.getCache("error").put("isError", false);
-                    });
+            officialTeslaApiClient.getOfficialTeslaInventory(countryUrlConfig.getCountryUrl(CountryModel.US_MODEL3))
+                    .getResults()
+                    .stream()
+                    .filter(ti -> cacheManager.getCache("inventory").get(ti.getVin()) == null)
+                    .forEach(this::handleInventory);
         } catch (final Exception e) {
             slackClient.sendSlackNotification(new SlackPost(e.toString()), errorNotificationUrl);
-            cacheManager.getCache("error").put("isError", true);
         }
+    }
+
+    @Scheduled(cron = "0/5 * * * * *")
+    public void CAModel3() {
+        LOGGER.info("Starting inventory check for CA 2021 Model 3");
+        try {
+            officialTeslaApiClient.getOfficialTeslaInventory(countryUrlConfig.getCountryUrl(CountryModel.CA_MODEL3))
+                    .getResults()
+                    .stream()
+                    .filter(ti -> cacheManager.getCache("inventory").get(ti.getVin()) == null)
+                    .forEach(this::handleInventory);
+        } catch (final Exception e) {
+            slackClient.sendSlackNotification(new SlackPost(e.toString()), errorNotificationUrl);
+        }
+    }
+
+    @Scheduled(cron = "0/5 * * * * *")
+    public void USModelY() {
+        LOGGER.info("Starting inventory check for US 2021 Model Y");
+        try {
+            officialTeslaApiClient.getOfficialTeslaInventory(countryUrlConfig.getCountryUrl(CountryModel.US_MODELY))
+                    .getResults()
+                    .stream()
+                    .filter(ti -> cacheManager.getCache("inventory").get(ti.getVin()) == null)
+                    .forEach(this::handleInventory);
+        } catch (final Exception e) {
+            slackClient.sendSlackNotification(new SlackPost(e.toString()), errorNotificationUrl);
+        }
+    }
+
+    private void handleInventory(final OfficialTeslaInventory officialTeslaInventory) {
+        LOGGER.info("{}", officialTeslaInventory);
+        final DiscordPost discordPost = new DiscordPost.Builder()
+                .addLine(officialTeslaInventory.getUrl())
+                .addLine("**Model:** " + officialTeslaInventory.getName())
+                .addLine("**Price:** " + officialTeslaInventory.getTotalPrice())
+                .addLine("**OTD Price:** " + officialTeslaInventory.getOutTheDoorPrice())
+                .addLine("**Wheels:** " + officialTeslaInventory.getWheels())
+                .addLine("**Interior:** " + officialTeslaInventory.getInterior())
+                .addLine("**Paint:** " + officialTeslaInventory.getPaint())
+                .addLine("**Odometer:** " + officialTeslaInventory.getOdometer())
+                .addLine("**Demo** " + officialTeslaInventory.getIsDemo())
+                .addLine("**Location:** " + officialTeslaInventory.getLocation())
+                .build();
+        discordClient.sendNotification(discordPost, Optional.ofNullable(teslaInventoryScheduleConfig
+                .getNotificationEndpoints()
+                .get(officialTeslaInventory.getCountryCode())
+                .get(officialTeslaInventory.getModel().toUpperCase().concat(officialTeslaInventory.getTrim())))
+                .orElseGet(() -> teslaInventoryScheduleConfig.getNotificationEndpoints().get(officialTeslaInventory.getCountryCode()).get("UNKNOWN")));
+        LOGGER.info("{}", discordPost);
+        cacheManager.getCache("inventory").put(officialTeslaInventory.getVin(), officialTeslaInventory);
     }
 }
