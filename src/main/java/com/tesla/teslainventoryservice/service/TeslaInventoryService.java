@@ -112,7 +112,7 @@ public class TeslaInventoryService {
                 .addLine("**Interior:** " + officialTeslaInventory.getInterior())
                 .addLine("**Paint:** " + officialTeslaInventory.getPaint())
                 .addLine("**Odometer:** " + officialTeslaInventory.getOdometer())
-                .addLine("**Demo** " + officialTeslaInventory.getIsDemo())
+                .addLine("**Demo/Test Drive Vehicle** " + officialTeslaInventory.getIsDemo())
                 .addLine("**Location:** " + officialTeslaInventory.getLocation())
                 .build();
         discordClient.sendNotification(discordPost, Optional.ofNullable(teslaInventoryScheduleConfig
