@@ -208,9 +208,9 @@ public class OfficialTeslaInventory {
 
     public String getUrl() {
         if ("CA".equals(countryCode)) {
-            return String.format("<https://www.tesla.com/en_CA/%s/order/%s?referral=brett64734#payment>", getModel(), getVin());
+            return String.format("<https://www.tesla.com/en_CA/%s/order/%s#payment>", getModel(), getVin());
         } else {
-            return String.format("<https://www.tesla.com/%s/order/%s?referral=brett64734#payment>", getModel(), getVin());
+            return String.format("<https://www.tesla.com/%s/order/%s#payment>", getModel(), getVin());
         }
     }
 
