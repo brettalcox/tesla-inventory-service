@@ -104,7 +104,7 @@ public class TeslaInventoryService {
     private void handleInventory(final OfficialTeslaInventory officialTeslaInventory) {
         LOGGER.info("{}", officialTeslaInventory);
         final DiscordPost discordPost = new DiscordPost.Builder()
-                .addLine(officialTeslaInventory.getUrl())
+                .addLine(officialTeslaInventory.getUrl(teslaInventoryScheduleConfig.getReferralCode()))
                 .addLine("**Model:** " + officialTeslaInventory.getName())
                 .addLine("**Price:** " + officialTeslaInventory.getTotalPrice())
                 .addLine("**OTD Price:** " + officialTeslaInventory.getOutTheDoorPrice())
@@ -112,7 +112,8 @@ public class TeslaInventoryService {
                 .addLine("**Interior:** " + officialTeslaInventory.getInterior())
                 .addLine("**Paint:** " + officialTeslaInventory.getPaint())
                 .addLine("**Odometer:** " + officialTeslaInventory.getOdometer())
-                .addLine("**Demo/Test Drive Vehicle** " + officialTeslaInventory.getIsDemo())
+                .addLine("**Range:** " + officialTeslaInventory.getRange())
+                .addLine("**Demo/Test Drive Vehicle:** " + officialTeslaInventory.getIsDemo())
                 .addLine("**Location:** " + officialTeslaInventory.getLocation())
                 .build();
         discordClient.sendNotification(discordPost, Optional.ofNullable(teslaInventoryScheduleConfig

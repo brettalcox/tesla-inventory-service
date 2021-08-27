@@ -2,6 +2,7 @@ package com.tesla.teslainventoryservice.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -61,6 +62,9 @@ public class OfficialTeslaInventory {
 
     @JsonProperty("IsDemo")
     private String isDemo;
+
+    @JsonProperty("OptionCodeData")
+    private List<OptionCode> optionCodeData;
 
     public String getVin() {
         return vin;
@@ -206,11 +210,43 @@ public class OfficialTeslaInventory {
         this.isDemo = isDemo;
     }
 
+    public List<OptionCode> getOptionCodeData() {
+        return optionCodeData;
+    }
+
+    public void setOptionCodeData(List<OptionCode> optionCodeData) {
+        this.optionCodeData = optionCodeData;
+    }
+
+    public OptionCode getOptionCode(final String groupKey) {
+        return Optional.ofNullable(getOptionCodeData())
+                .stream()
+                .flatMap(Collection::stream)
+                .filter(oc -> groupKey.equalsIgnoreCase(oc.getGroup()))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public String getRange() {
+        return Optional.ofNullable(getOptionCode("SPECS_RANGE"))
+                .map(oc -> oc.getValue() + oc.getUnitShort())
+                .orElse("");
+
+    }
+
     public String getUrl() {
         if ("CA".equals(countryCode)) {
             return String.format("<https://www.tesla.com/en_CA/%s/order/%s#payment>", getModel(), getVin());
         } else {
             return String.format("<https://www.tesla.com/%s/order/%s#payment>", getModel(), getVin());
+        }
+    }
+
+    public String getUrl(final String referral) {
+        if ("CA".equals(countryCode)) {
+            return String.format("<https://www.tesla.com/en_CA/%s/order/%s?referral=%s#payment>", getModel(), getVin(), referral);
+        } else {
+            return String.format("<https://www.tesla.com/%s/order/%s?referral=%s#payment>", getModel(), getVin(), referral);
         }
     }
 

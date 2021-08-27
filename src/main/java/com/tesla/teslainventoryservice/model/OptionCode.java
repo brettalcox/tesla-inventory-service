@@ -1,0 +1,39 @@
+package com.tesla.teslainventoryservice.model;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class OptionCode {
+
+    @JsonProperty("group")
+    private String group;
+
+    @JsonProperty("unit_short")
+    private String unitShort;
+
+    @JsonProperty("value")
+    private String value;
+
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
+    }
+
+    public String getUnitShort() {
+        return unitShort;
+    }
+
+    public void setUnitShort(String unitShort) {
+        this.unitShort = unitShort;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+}

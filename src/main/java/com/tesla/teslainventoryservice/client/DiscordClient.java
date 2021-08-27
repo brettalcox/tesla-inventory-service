@@ -1,6 +1,8 @@
 package com.tesla.teslainventoryservice.client;
 
 import com.tesla.teslainventoryservice.model.DiscordPost;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -15,6 +17,7 @@ public class DiscordClient {
         this.restTemplate = restTemplate;
     }
 
+    @Retryable(maxAttempts = 10, backoff = @Backoff(delay = 250, multiplier = 2))
     public void sendNotification(final DiscordPost discordPost, final URI notificationEndpoint) {
         restTemplate.postForEntity(notificationEndpoint, discordPost, Void.class);
     }
