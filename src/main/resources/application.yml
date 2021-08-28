@@ -37,6 +37,9 @@ tesla:
     - alexander64142
     - latham72905
     - kyle12815
+    - todd19568
+    - julian79969
+    - jaideep64063
 ---
 spring:
   profiles: test
