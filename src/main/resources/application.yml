@@ -42,6 +42,9 @@ tesla:
     - jaideep64063
     - brandon72228
     - azeem81190
+    - justin98607
+    - alon40385
+    - aiduyen95924
 ---
 spring:
   profiles: test
