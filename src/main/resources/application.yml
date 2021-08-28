@@ -40,6 +40,8 @@ tesla:
     - todd19568
     - julian79969
     - jaideep64063
+    - brandon72228
+    - azeem81190
 ---
 spring:
   profiles: test
