@@ -101,6 +101,20 @@ public class TeslaInventoryService {
         }
     }
 
+    @Scheduled(cron = "0/5 * * * * *")
+    public void CAModelY() {
+        LOGGER.info("Starting inventory check for CA 2021 Model Y");
+        try {
+            officialTeslaApiClient.getOfficialTeslaInventory(countryUrlConfig.getCountryUrl(CountryModel.CA_MODELY))
+                    .getResults()
+                    .stream()
+                    .filter(ti -> cacheManager.getCache("inventory").get(ti.getVin()) == null)
+                    .forEach(this::handleInventory);
+        } catch (final Exception e) {
+            slackClient.sendSlackNotification(new SlackPost(e.toString()), errorNotificationUrl);
+        }
+    }
+
     private void handleInventory(final OfficialTeslaInventory officialTeslaInventory) {
         LOGGER.info("{}", officialTeslaInventory);
         final DiscordPost discordPost = new DiscordPost.Builder()
