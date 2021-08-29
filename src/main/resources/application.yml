@@ -45,6 +45,8 @@ tesla:
     - justin98607
     - alon40385
     - aiduyen95924
+    - thai54749
+    - kevin55336
 ---
 spring:
   profiles: test
