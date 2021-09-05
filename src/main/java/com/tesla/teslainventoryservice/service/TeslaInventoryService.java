@@ -31,6 +31,8 @@ public class TeslaInventoryService {
 
     private final OfficialTeslaApiClient officialTeslaApiClient;
 
+    private final ReferralService referralService;
+
     private final TeslaInventoryScheduleConfig teslaInventoryScheduleConfig;
 
     private final CountryUrlConfig countryUrlConfig;
@@ -44,6 +46,7 @@ public class TeslaInventoryService {
     private final URI errorNotificationUrl;
 
     public TeslaInventoryService(final OfficialTeslaApiClient officialTeslaApiClient,
+                                 final ReferralService referralService,
                                  final TeslaInventoryScheduleConfig teslaInventoryScheduleConfig,
                                  final CountryUrlConfig countryUrlConfig,
                                  final SlackClient slackClient,
@@ -51,6 +54,7 @@ public class TeslaInventoryService {
                                  final CacheManager cacheManager,
                                  final @Value("${tesla.error-notification-url}") URI errorNotificationUrl) {
         this.officialTeslaApiClient = officialTeslaApiClient;
+        this.referralService = referralService;
         this.teslaInventoryScheduleConfig = teslaInventoryScheduleConfig;
         this.countryUrlConfig = countryUrlConfig;
         this.slackClient = slackClient;
@@ -118,7 +122,7 @@ public class TeslaInventoryService {
     private void handleInventory(final OfficialTeslaInventory officialTeslaInventory) {
         LOGGER.info("{}", officialTeslaInventory);
         final DiscordPost discordPost = new DiscordPost.Builder()
-                .addLine(officialTeslaInventory.getUrl(teslaInventoryScheduleConfig.getReferralCode()))
+                .addLine(officialTeslaInventory.getUrl(referralService.getReferralCode()))
                 .addLine("**Model:** " + officialTeslaInventory.getName())
                 .addLine("**Price:** " + officialTeslaInventory.getTotalPrice())
                 .addLine("**OTD Price:** " + officialTeslaInventory.getOutTheDoorPrice())

@@ -2,7 +2,7 @@ version: "3.9"
 services:
   web:
     restart: "always"
-    image: "brettalcox/tesla-inventory:1.1.0"
+    image: "brettalcox/tesla-inventory:2.4.15"
     ports:
       - "8080:8080"
   redis:
@@ -10,3 +10,12 @@ services:
     image: "redis:latest"
     ports:
       - "6379:6379"
+  maria:
+    restart: "always"
+    image: "jsurf/rpi-mariadb:latest"
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: toot69
+    volumes:
+      - /opt/mariadb_data:/var/lib/mysql

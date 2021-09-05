@@ -1,6 +1,14 @@
 spring:
+  jpa:
+    show-sql: true
   redis:
     host: redis
+  datasource:
+    url: jdbc:mysql://maria:3306/inventory
+    username: root
+    password: toot69
+  flyway:
+    baseline-on-migrate: true
 cache:
   names:
     inventory: 14400
@@ -36,22 +44,20 @@ tesla:
     - tomas9407
     - alexander64142
     - latham72905
-    - kyle12815
-    - todd19568
-    - julian79969
-    - jaideep64063
     - brandon72228
-    - azeem81190
     - justin98607
     - alon40385
-    - aiduyen95924
-    - thai54749
     - kevin55336
+    - thomas23931
+    - peter93858
+    - russell73104
 ---
 spring:
   profiles: test
   redis:
     host: localhost
+  datasource:
+    url: jdbc:mysql://localhost:3306/inventory
 tesla:
   notification-endpoints:
     US:

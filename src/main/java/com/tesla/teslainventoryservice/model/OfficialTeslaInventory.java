@@ -243,6 +243,10 @@ public class OfficialTeslaInventory {
     }
 
     public String getUrl(final String referral) {
+        if (referral == null) {
+            return getUrl();
+        }
+
         if ("CA".equals(countryCode)) {
             return String.format("<https://www.tesla.com/en_CA/%s/order/%s?referral=%s#payment>", getModel(), getVin(), referral);
         } else {
