@@ -2,10 +2,10 @@ package com.tesla.teslainventoryservice.controller;
 
 import com.tesla.teslainventoryservice.entity.Referral;
 import com.tesla.teslainventoryservice.service.ReferralService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequestMapping("/referrals")
 @RestController
@@ -20,5 +20,16 @@ public class ReferralController {
     @PostMapping
     public Referral createReferral(@RequestBody final Referral referral) {
         return referralService.saveReferral(referral);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{id}")
+    public void deleteReferral(@PathVariable("id") final String id) {
+        referralService.deleteReferral(id);
+    }
+
+    @GetMapping
+    public List<Referral> getAllReferrals() {
+        return referralService.getAllReferrals();
     }
 }

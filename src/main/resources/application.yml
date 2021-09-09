@@ -7,6 +7,7 @@ spring:
     url: jdbc:mysql://maria:3306/inventory
     username: root
     password: toot69
+    driver-class-name: com.mysql.jdbc.Driver
   flyway:
     baseline-on-migrate: true
 cache:
@@ -39,18 +40,6 @@ tesla:
       MYLRAWD: ${CA_MYLRAWD}
       MYLRAWDP: ${CA_MYLRAWDP}
       UNKNOWN: ${CA_UNKNOWN}
-  referral-codes:
-    - brett64734
-    - tomas9407
-    - alexander64142
-    - latham72905
-    - brandon72228
-    - justin98607
-    - alon40385
-    - kevin55336
-    - thomas23931
-    - peter93858
-    - russell73104
 ---
 spring:
   profiles: test

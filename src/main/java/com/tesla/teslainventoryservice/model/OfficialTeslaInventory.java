@@ -2,10 +2,7 @@ package com.tesla.teslainventoryservice.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 public class OfficialTeslaInventory {
 
@@ -65,6 +62,12 @@ public class OfficialTeslaInventory {
 
     @JsonProperty("OptionCodeData")
     private List<OptionCode> optionCodeData;
+
+    @JsonProperty("ADL_OPTS")
+    private List<String> additionalOptions;
+
+    @JsonProperty("CABIN_CONFIG")
+    private List<String> cabinConfig;
 
     public String getVin() {
         return vin;
@@ -210,6 +213,22 @@ public class OfficialTeslaInventory {
         this.isDemo = isDemo;
     }
 
+    public List<String> getAdditionalOptions() {
+        return Optional.ofNullable(additionalOptions).orElseGet(List::of);
+    }
+
+    public void setAdditionalOptions(List<String> additionalOptions) {
+        this.additionalOptions = additionalOptions;
+    }
+
+    public List<String> getCabinConfig() {
+        return cabinConfig;
+    }
+
+    public void setCabinConfig(List<String> cabinConfig) {
+        this.cabinConfig = cabinConfig;
+    }
+
     public List<OptionCode> getOptionCodeData() {
         return optionCodeData;
     }
@@ -255,7 +274,7 @@ public class OfficialTeslaInventory {
     }
 
     public String getName() {
-        return String.format("%s %s %s %s", getTitleStatus(), getYear(), getModel(), getTrimName());
+        return String.format("%s %s %s %s", getTitleStatus(), getYear(), getModel().toUpperCase(), getTrimName());
     }
 
     public String getLocation() {
