@@ -30,6 +30,9 @@ public class OfficialTeslaInventory {
     @JsonProperty("INTERIOR")
     private List<String> interior;
 
+    @JsonProperty("DECOR")
+    private List<String> decor;
+
     @JsonProperty("Year")
     private String year;
 
@@ -118,7 +121,7 @@ public class OfficialTeslaInventory {
     }
 
     public List<String> getWheels() {
-        return wheels;
+        return Optional.ofNullable(wheels).orElse(List.of(getOptionCode("WHEELS").getName()));
     }
 
     public void setWheels(List<String> wheels) {
@@ -131,6 +134,14 @@ public class OfficialTeslaInventory {
 
     public void setInterior(List<String> interior) {
         this.interior = interior;
+    }
+
+    public List<String> getDecor() {
+        return decor;
+    }
+
+    public void setDecor(List<String> decor) {
+        this.decor = decor;
     }
 
     public String getYear() {
@@ -305,6 +316,7 @@ public class OfficialTeslaInventory {
                 ", paint=" + paint +
                 ", wheels=" + wheels +
                 ", interior=" + interior +
+                ", decor=" + decor +
                 ", year='" + year + '\'' +
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
@@ -313,6 +325,11 @@ public class OfficialTeslaInventory {
                 ", currencyCode='" + currencyCode + '\'' +
                 ", countryCode='" + countryCode + '\'' +
                 ", model='" + model + '\'' +
+                ", odometer='" + odometer + '\'' +
+                ", isDemo='" + isDemo + '\'' +
+                ", optionCodeData=" + optionCodeData +
+                ", additionalOptions=" + additionalOptions +
+                ", cabinConfig=" + cabinConfig +
                 '}';
     }
 }

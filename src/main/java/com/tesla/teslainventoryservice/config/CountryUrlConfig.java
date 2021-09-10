@@ -17,11 +17,15 @@ public class CountryUrlConfig {
     public CountryUrlConfig(final @Value("${tesla.m3-us-url}") URI m3UsUrl,
                             final @Value("${tesla.m3-ca-url}") URI m3CaUrl,
                             final @Value("${tesla.my-us-url}") URI myUsUrl,
-                            final @Value("${tesla.my-ca-url}") URI myCaUrl) {
+                            final @Value("${tesla.my-ca-url}") URI myCaUrl,
+                            final @Value("${tesla.ms-us-url}") URI msUsUrl,
+                            final @Value("${tesla.ms-ca-url}") URI msCaUrl) {
         countryUrls.put(CountryModel.US_MODEL3, m3UsUrl);
         countryUrls.put(CountryModel.CA_MODEL3, m3CaUrl);
         countryUrls.put(CountryModel.US_MODELY, myUsUrl);
         countryUrls.put(CountryModel.CA_MODELY, myCaUrl);
+        countryUrls.put(CountryModel.US_MODELS, msUsUrl);
+        countryUrls.put(CountryModel.CA_MODELS, msCaUrl);
     }
 
     public URI getCountryUrl(final CountryModel countryModel) {

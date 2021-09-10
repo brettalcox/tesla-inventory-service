@@ -119,6 +119,34 @@ public class TeslaInventoryService {
         }
     }
 
+    @Scheduled(cron = "0/5 * * * * *")
+    public void USModelS() {
+        LOGGER.info("Starting inventory check for US 2021 Model S");
+        try {
+            officialTeslaApiClient.getOfficialTeslaInventory(countryUrlConfig.getCountryUrl(CountryModel.US_MODELS))
+                    .getResults()
+                    .stream()
+                    .filter(ti -> cacheManager.getCache("inventory").get(ti.getVin()) == null)
+                    .forEach(this::handleInventory);
+        } catch (final Exception e) {
+            slackClient.sendSlackNotification(new SlackPost(e.toString()), errorNotificationUrl);
+        }
+    }
+
+    @Scheduled(cron = "0/5 * * * * *")
+    public void CAModelS() {
+        LOGGER.info("Starting inventory check for CA 2021 Model S");
+        try {
+            officialTeslaApiClient.getOfficialTeslaInventory(countryUrlConfig.getCountryUrl(CountryModel.CA_MODELS))
+                    .getResults()
+                    .stream()
+                    .filter(ti -> cacheManager.getCache("inventory").get(ti.getVin()) == null)
+                    .forEach(this::handleInventory);
+        } catch (final Exception e) {
+            slackClient.sendSlackNotification(new SlackPost(e.toString()), errorNotificationUrl);
+        }
+    }
+
     private void handleInventory(final OfficialTeslaInventory officialTeslaInventory) {
         LOGGER.info("{}", officialTeslaInventory);
         final DiscordPost discordPost = new DiscordPost.Builder()
@@ -128,6 +156,7 @@ public class TeslaInventoryService {
                 .addLine("OTD Price", officialTeslaInventory.getOutTheDoorPrice())
                 .addLine("Wheels", officialTeslaInventory.getWheels())
                 .addLine("Interior", officialTeslaInventory.getInterior())
+                .addLineIfNotNull("Decor", officialTeslaInventory.getDecor())
                 .addLine("Paint", officialTeslaInventory.getPaint())
                 .addLine("Additional Options", officialTeslaInventory.getAdditionalOptions())
                 .addLineIfNotNull("Cabin Config", officialTeslaInventory.getCabinConfig())
