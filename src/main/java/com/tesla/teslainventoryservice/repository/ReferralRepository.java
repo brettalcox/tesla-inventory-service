@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface ReferralRepository extends CrudRepository<Referral, String> {
     List<Referral> findAll();
+
+    List<Referral> findAllByGroupId(String groupId);
 }

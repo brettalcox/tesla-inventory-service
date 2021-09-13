@@ -1,0 +1,1 @@
+ALTER TABLE `referral` ADD group_id VARCHAR(36);

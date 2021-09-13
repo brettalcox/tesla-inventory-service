@@ -21,8 +21,9 @@ import java.util.Optional;
 
 /**
  * The design in this class is kind of gross, but I'm just taking the easy route here. I want the notifications to be
- * as quick as possible, while also leveraging the ease of Spring @Scheduled. Broke each model out into their own
- * checks so the Discord notifications don't have to wait for the rest of the inventory checks
+ * as quick as possible, while also leveraging the ease of Spring @Scheduled. Have a separately managed thread pool
+ * in the config class. Broke each model out into their own checks so the Discord notifications don't have to wait for
+ * the rest of the inventory checks
  */
 @Service
 public class TeslaInventoryService {
@@ -151,7 +152,7 @@ public class TeslaInventoryService {
         LOGGER.info("{}", officialTeslaInventory);
         final DiscordPost discordPost = new DiscordPost.Builder()
                 .addLine("**" + officialTeslaInventory.getName() + "**")
-                .addLine(officialTeslaInventory.getUrl(referralService.getReferralCode()))
+                .addLine(officialTeslaInventory.getUrl(referralService.getRandomReferral().getCode()))
                 .addLine("Price", officialTeslaInventory.getTotalPrice())
                 .addLine("OTD Price", officialTeslaInventory.getOutTheDoorPrice())
                 .addLine("Wheels", officialTeslaInventory.getWheels())

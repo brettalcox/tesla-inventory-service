@@ -14,6 +14,8 @@ public class CountryUrlConfig {
 
     private final Map<CountryModel, URI> countryUrls = new ConcurrentHashMap<>();
 
+    // spring is dum and handles the urls differently when running under a @ConfigurationProperties injection (how i'd prefer to do it)
+    // so here we are manually injecting each url into the constructor
     public CountryUrlConfig(final @Value("${tesla.m3-us-url}") URI m3UsUrl,
                             final @Value("${tesla.m3-ca-url}") URI m3CaUrl,
                             final @Value("${tesla.my-us-url}") URI myUsUrl,

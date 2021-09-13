@@ -32,4 +32,9 @@ public class ReferralController {
     public List<Referral> getAllReferrals() {
         return referralService.getAllReferrals();
     }
+
+    @GetMapping("/random")
+    public Referral getReferralCode() {
+        return referralService.getRandomReferral();
+    }
 }
