@@ -165,6 +165,7 @@ public class TeslaInventoryService {
                 .addLine("Range", officialTeslaInventory.getRange())
                 .addLine("Demo/Test Drive Vehicle", officialTeslaInventory.getIsDemo())
                 .addLine("Location", officialTeslaInventory.getLocation())
+                .addLine(":warning: Tesla has halted all transports for remainder of the quarter. Please ensure this is a location you intend to pickup from or drive/fly to. :warning:")
                 .addLine(" ________________________________")
                 .quote(true)
                 .build();
