@@ -72,6 +72,9 @@ public class OfficialTeslaInventory {
     @JsonProperty("CABIN_CONFIG")
     private List<String> cabinConfig;
 
+    @JsonProperty("AUTOPILOT")
+    private List<String> autopilot;
+
     public String getVin() {
         return vin;
     }
@@ -248,6 +251,14 @@ public class OfficialTeslaInventory {
         this.optionCodeData = optionCodeData;
     }
 
+    public List<String> getAutopilot() {
+        return autopilot;
+    }
+
+    public void setAutopilot(List<String> autopilot) {
+        this.autopilot = autopilot;
+    }
+
     public OptionCode getOptionCode(final String groupKey) {
         return Optional.ofNullable(getOptionCodeData())
                 .stream()
@@ -330,6 +341,7 @@ public class OfficialTeslaInventory {
                 ", optionCodeData=" + optionCodeData +
                 ", additionalOptions=" + additionalOptions +
                 ", cabinConfig=" + cabinConfig +
+                ", autopilot=" + autopilot +
                 '}';
     }
 }

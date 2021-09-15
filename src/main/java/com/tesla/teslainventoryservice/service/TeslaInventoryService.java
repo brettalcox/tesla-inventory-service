@@ -160,6 +160,7 @@ public class TeslaInventoryService {
                 .addLineIfNotNull("Decor", officialTeslaInventory.getDecor())
                 .addLine("Paint", officialTeslaInventory.getPaint())
                 .addLine("Additional Options", officialTeslaInventory.getAdditionalOptions())
+                .addLine("Autopilot/FSD", officialTeslaInventory.getAutopilot())
                 .addLineIfNotNull("Cabin Config", officialTeslaInventory.getCabinConfig())
                 .addLine("Odometer", officialTeslaInventory.getOdometer())
                 .addLine("Range", officialTeslaInventory.getRange())
