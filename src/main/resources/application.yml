@@ -13,8 +13,6 @@ spring:
 cache:
   names:
     inventory: 14400
-    error: 60
-    last-seen: 86400
 server:
   port: 8080
   servlet:
@@ -53,23 +51,3 @@ spring:
     host: localhost
   datasource:
     url: jdbc:mysql://localhost:3306/inventory
-tesla:
-  notification-endpoints:
-    US:
-      M3SRPRWD: ${US_M3SRPRWD}
-      M3LRAWD: ${US_M3LRAWD}
-      M3LRAWDP: ${US_M3LRAWDP}
-      MYLRAWD: ${US_MYLRAWD}
-      MYLRAWDP: ${US_MYLRAWDP}
-      MSPLAID: ${US_MSPLAID}
-      MS100DE: ${US_MS100DE}
-      UNKNOWN: ${US_UNKNOWN}
-    CA:
-      M3SRPRWD: ${CA_M3SRPRWD}
-      M3LRAWD: ${CA_M3LRAWD}
-      M3LRAWDP: ${CA_M3LRAWDP}
-      MYLRAWD: ${CA_MYLRAWD}
-      MYLRAWDP: ${CA_MYLRAWDP}
-      MSPLAID: ${CA_MSPLAID}
-      MS100DE: ${CA_MS100DE}
-      UNKNOWN: ${CA_UNKNOWN}

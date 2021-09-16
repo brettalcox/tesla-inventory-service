@@ -1,8 +1,8 @@
-version: "3.9"
+version: "3.3"
 services:
   web:
     restart: "always"
-    image: "brettalcox/tesla-inventory:2.4.15"
+    image: "brettalcox/tesla-inventory:arm-2.8.2"
     ports:
       - "8080:8080"
   redis:
@@ -18,4 +18,4 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: toot69
     volumes:
-      - /opt/mariadb_data:/var/lib/mysql
+      - /opt/mysql_data:/var/lib/mysql

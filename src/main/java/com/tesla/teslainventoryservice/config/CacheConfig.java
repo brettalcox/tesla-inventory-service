@@ -87,17 +87,17 @@ public class CacheConfig extends CachingConfigurerSupport {
 
             @Override
             public void handleCachePutError(RuntimeException e, Cache cache, Object o, Object o1) {
-                LOGGER.error("Could not cache value for key={}", o, e);
+                LOGGER.error("Unable to cache put for key={}", o, e);
             }
 
             @Override
             public void handleCacheEvictError(RuntimeException e, Cache cache, Object o) {
-                LOGGER.error("Could not evict cache value for key={}", o, e);
+                LOGGER.error("Unable to cache evict for key={}", o, e);
             }
 
             @Override
             public void handleCacheClearError(RuntimeException e, Cache cache) {
-                LOGGER.error("Could not clear cache for cacheName={}", cache.getName(), e);
+                LOGGER.error("Unable to cache clear for cache={}", cache.getName(), e);
             }
         };
     }
