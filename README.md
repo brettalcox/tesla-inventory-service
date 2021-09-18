@@ -70,6 +70,9 @@ The `<url>` will need to be supplied if this functionality is desired. Currently
 
 4. `docker-compose up -d`
 
+## Other Links
+https://hub.docker.com/repository/docker/brettalcox/tesla-inventory (this includes linux/amd64 and linux/arm64 for RPi)
+
 ## Support
 My goal with this tool is to help future Tesla owners get their cars quicker. If you found this useful or were able to secure a car from Existing Inventory, consider donating to fund current and future development to make this tool better :)
 
