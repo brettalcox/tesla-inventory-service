@@ -44,10 +44,3 @@ tesla:
       MSPLAID: ${CA_MSPLAID}
       MS100DE: ${CA_MS100DE}
       UNKNOWN: ${CA_UNKNOWN}
----
-spring:
-  profiles: test
-  redis:
-    host: localhost
-  datasource:
-    url: jdbc:mysql://127.0.0.1:3306/inventory?useSSL=false
