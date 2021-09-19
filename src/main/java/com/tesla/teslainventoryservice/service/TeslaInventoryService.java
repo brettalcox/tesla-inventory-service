@@ -152,7 +152,7 @@ public class TeslaInventoryService {
         LOGGER.info("{}", officialTeslaInventory);
         final DiscordPost discordPost = new DiscordPost.Builder()
                 .addLine("**" + officialTeslaInventory.getName() + "**")
-                .addLine(officialTeslaInventory.getUrl(referralService.getRandomReferral().getCode()))
+                .addLine(officialTeslaInventory.getUrl())
                 .addLine("Price", officialTeslaInventory.getTotalPrice())
                 .addLine("OTD Price", officialTeslaInventory.getOutTheDoorPrice())
                 .addLine("Wheels", officialTeslaInventory.getWheels())
