@@ -28,7 +28,7 @@ tesla:
   notification-endpoints:
     US:
       M3SRPRWD: ${US_M3SRPRWD}
-      M3RWD: ${US_M3SRPRWD}
+      M3M3RWD: ${US_M3SRPRWD}
       M3LRAWD: ${US_M3LRAWD}
       M3LRAWDP: ${US_M3LRAWDP}
       MYLRAWD: ${US_MYLRAWD}
@@ -38,7 +38,7 @@ tesla:
       UNKNOWN: ${US_UNKNOWN}
     CA:
       M3SRPRWD: ${CA_M3SRPRWD}
-      M3RWD: ${CA_M3SRPRWD}
+      M3M3RWD: ${CA_M3SRPRWD}
       M3LRAWD: ${CA_M3LRAWD}
       M3LRAWDP: ${CA_M3LRAWDP}
       MYLRAWD: ${CA_MYLRAWD}
