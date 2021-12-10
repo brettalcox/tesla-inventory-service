@@ -12,7 +12,7 @@ spring:
     baseline-on-migrate: true
 cache:
   names:
-    inventory: 14400
+    inventory: 86400
 server:
   port: 8080
   servlet:
