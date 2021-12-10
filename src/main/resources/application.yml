@@ -36,7 +36,9 @@ tesla:
       MYLRAWDP: ${US_MYLRAWDP}
       MYPAWD: ${US_MYLRAWDP}
       MSPLAID: ${US_MSPLAID}
+      MSMSPLAID: ${US_MSPLAID}
       MS100DE: ${US_MS100DE}
+      MSMS100DE: ${US_MS100DE}
       UNKNOWN: ${US_UNKNOWN}
     CA:
       M3SRPRWD: ${CA_M3SRPRWD}
@@ -48,7 +50,9 @@ tesla:
       MYLRAWDP: ${CA_MYLRAWDP}
       MYPAWD: ${CA_MYLRAWDP}
       MSPLAID: ${CA_MSPLAID}
+      MSMSPLAID: ${CA_MSPLAID}
       MS100DE: ${CA_MS100DE}
+      MSMS100DE: ${CA_MS100DE}
       UNKNOWN: ${CA_UNKNOWN}
 ---
 spring:
