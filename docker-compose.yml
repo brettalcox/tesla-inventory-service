@@ -2,35 +2,57 @@ version: "3.3"
 services:
   web:
     restart: "always"
-    image: "brettalcox/tesla-inventory:2.9.2"
+    image: "brettalcox/tesla-inventory:arm-2.9.10"
     ports:
       - "8080:8080"
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: 10m
     environment:
-      US_M3SRPRWD: <url>
-      US_M3LRAWD: <url>
-      US_M3LRAWDP: <url>
-      US_MYLRAWD: <url>
-      US_MYLRAWDP: <url>
-      US_MSPLAID: <url>
-      US_MS100DE: <url>
-      US_UNKNOWN: <url>
-      CA_M3SRPRWD: <url>
-      CA_M3LRAWD: <url>
-      CA_M3LRAWDP: <url>
-      CA_MYLRAWD: <url>
-      CA_MYLRAWDP: <url>
-      CA_MSPLAID: <url>
-      CA_MS100DE: <url>
-      CA_UNKNOWN: <url>
-      ERROR_NOTIFICATION_URL: <url>
+      US_M3SRPRWD: ${US_M3SRPRWD}
+      US_M3M3RWD: ${US_M3SRPRWD}
+      US_M3LRAWD: ${US_M3LRAWD}
+      US_M3LRAWDP: ${US_M3LRAWDP}
+      US_M3PAWD: ${US_M3LRAWDP}
+      US_MYLRAWD: ${US_MYLRAWD}
+      US_MYLRAWDP: ${US_MYLRAWDP}
+      US_MYPAWD: ${US_MYLRAWDP}
+      US_MSPLAID: ${US_MSPLAID}
+      US_MSMSPLAID: ${US_MSPLAID}
+      US_MSMSAWD: ${US_MS100DE}
+      US_MS100DE: ${US_MS100DE}
+      US_MSMS100DE: ${US_MS100DE}
+      US_UNKNOWN: ${US_UNKNOWN}
+      CA_M3SRPRWD: ${CA_M3SRPRWD}
+      CA_M3M3RWD: ${CA_M3SRPRWD}
+      CA_M3LRAWD: ${CA_M3LRAWD}
+      CA_M3LRAWDP: ${CA_M3LRAWDP}
+      CA_M3PAWD: ${CA_M3LRAWDP}
+      CA_MYLRAWD: ${CA_MYLRAWD}
+      CA_MYLRAWDP: ${CA_MYLRAWDP}
+      CA_MYPAWD: ${CA_MYLRAWDP}
+      CA_MSPLAID: ${CA_MSPLAID}
+      CA_MSMSPLAID: ${CA_MSPLAID}
+      CA_MSMSAWD: ${CA_MS100DE}
+      CA_MS100DE: ${CA_MS100DE}
+      CA_MSMS100DE: ${CA_MS100DE}
+      CA_UNKNOWN: ${CA_UNKNOWN}
+      ERROR_NOTIFICATION_URL: ${ERROR_NOTIFICATION_URL}
   redis:
     restart: "always"
     image: "redis:latest"
     ports:
       - "6379:6379"
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: 10m
   maria:
     restart: "always"
-    image: "mariadb:10.5.12"
+    image: "jsurf/rpi-mariadb:latest"
     ports:
       - "3306:3306"
     environment:
@@ -38,3 +60,8 @@ services:
       MYSQL_DATABASE: inventory
     volumes:
       - /opt/mysql_data:/var/lib/mysql
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: 10m
