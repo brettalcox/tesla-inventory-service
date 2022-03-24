@@ -94,6 +94,16 @@ public class TeslaInventoryService {
         checkInventory(CountryModel.CA_MODELS);
     }
 
+    @Scheduled(cron = "0/5 * * * * *")
+    public void USModelX() {
+        checkInventory(CountryModel.US_MODELX);
+    }
+
+    @Scheduled(cron = "0/5 * * * * *")
+    public void CAModelX() {
+        checkInventory(CountryModel.CA_MODELX);
+    }
+
     private void checkInventory(final CountryModel countryModel) {
         LOGGER.info("Starting inventory check for {}", countryModel);
         try {

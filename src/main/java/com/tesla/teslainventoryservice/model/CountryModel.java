@@ -6,5 +6,7 @@ public enum CountryModel {
     US_MODELY,
     CA_MODELY,
     US_MODELS,
-    CA_MODELS
+    CA_MODELS,
+    US_MODELX,
+    CA_MODELX
 }
