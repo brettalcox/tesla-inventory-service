@@ -6,7 +6,7 @@ This tool is simple: it polls Tesla's inventory API and does the heavy lifting f
 Tesla Inventory Discord: https://discord.gg/rAkyXCcQCv
 
 ## Example Notification
-![Screenshot from 2021-09-18 15-51-14](https://user-images.githubusercontent.com/7462622/133908271-ce6c835a-cc42-4d9a-8374-dd363ddf1ae3.png)
+![Screenshot from 2022-03-26 18-43-19](https://user-images.githubusercontent.com/7462622/160260701-23803609-0662-4848-b181-32b70de323a3.png)
 
 ## Building for Local Development
 1. Install (at least) Java 11: https://adoptopenjdk.net/installation.html
