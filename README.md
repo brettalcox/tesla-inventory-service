@@ -8,6 +8,8 @@ Tesla Inventory Discord: https://discord.gg/rAkyXCcQCv
 ## Example Notification
 ![Screenshot from 2022-03-26 18-45-52](https://user-images.githubusercontent.com/7462622/160260743-77f20c21-f886-46c0-81d8-7648061a8f66.png)
 
+![image0](https://user-images.githubusercontent.com/7462622/160260857-62561282-9ae3-4526-b038-8a79f528802e.jpeg)
+
 ## Building for Local Development
 1. Install (at least) Java 11: https://adoptopenjdk.net/installation.html
 2. Install MVN: https://maven.apache.org/install.html
