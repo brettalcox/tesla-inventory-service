@@ -28,6 +28,10 @@ public class DiscordPost {
         }
 
         public synchronized <T> Builder addLine(final T text) {
+            if (text == null) {
+                return this;
+            }
+
             if (stringBuilder.length() != 0) {
                 stringBuilder.append("\n");
             }

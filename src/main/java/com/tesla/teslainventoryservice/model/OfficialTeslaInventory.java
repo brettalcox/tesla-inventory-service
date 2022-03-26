@@ -303,6 +303,10 @@ public class OfficialTeslaInventory {
         return String.format("%s, %s", getCity(), getState());
     }
 
+    public String getModelTrim() {
+        return getModel().toUpperCase().concat(getTrim());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

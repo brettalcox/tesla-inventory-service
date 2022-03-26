@@ -4,6 +4,7 @@ import com.tesla.teslainventoryservice.client.DiscordClient;
 import com.tesla.teslainventoryservice.client.OfficialTeslaApiClient;
 import com.tesla.teslainventoryservice.client.SlackClient;
 import com.tesla.teslainventoryservice.config.CountryUrlConfig;
+import com.tesla.teslainventoryservice.config.DiscordModelTrimRoleConfig;
 import com.tesla.teslainventoryservice.config.TeslaInventoryScheduleConfig;
 import com.tesla.teslainventoryservice.model.CountryModel;
 import com.tesla.teslainventoryservice.model.DiscordPost;
@@ -36,6 +37,8 @@ public class TeslaInventoryService {
 
     private final TeslaInventoryScheduleConfig teslaInventoryScheduleConfig;
 
+    private final DiscordModelTrimRoleConfig discordModelTrimRoleConfig;
+
     private final CountryUrlConfig countryUrlConfig;
 
     private final SlackClient slackClient;
@@ -49,6 +52,7 @@ public class TeslaInventoryService {
     public TeslaInventoryService(final OfficialTeslaApiClient officialTeslaApiClient,
                                  final ReferralService referralService,
                                  final TeslaInventoryScheduleConfig teslaInventoryScheduleConfig,
+                                 final DiscordModelTrimRoleConfig discordModelTrimRoleConfig,
                                  final CountryUrlConfig countryUrlConfig,
                                  final SlackClient slackClient,
                                  final DiscordClient discordClient,
@@ -57,6 +61,7 @@ public class TeslaInventoryService {
         this.officialTeslaApiClient = officialTeslaApiClient;
         this.referralService = referralService;
         this.teslaInventoryScheduleConfig = teslaInventoryScheduleConfig;
+        this.discordModelTrimRoleConfig = discordModelTrimRoleConfig;
         this.countryUrlConfig = countryUrlConfig;
         this.slackClient = slackClient;
         this.discordClient = discordClient;
@@ -135,13 +140,14 @@ public class TeslaInventoryService {
                 .addLine("Range", officialTeslaInventory.getRange())
                 .addLine("Demo/Test Drive Vehicle", officialTeslaInventory.getIsDemo())
                 .addLine("Location", officialTeslaInventory.getLocation())
+                .addLine(discordModelTrimRoleConfig.getRoleByCountryModelTrim(officialTeslaInventory.getCountryCode(), officialTeslaInventory.getModelTrim()))
                 .addLine(" ________________________________")
                 .quote(true)
                 .build();
         discordClient.sendNotification(discordPost, Optional.ofNullable(teslaInventoryScheduleConfig
                 .getNotificationEndpoints()
                 .get(officialTeslaInventory.getCountryCode())
-                .get(officialTeslaInventory.getModel().toUpperCase().concat(officialTeslaInventory.getTrim())))
+                .get(officialTeslaInventory.getModelTrim()))
                 .orElseGet(() -> teslaInventoryScheduleConfig.getNotificationEndpoints().get(officialTeslaInventory.getCountryCode()).get("UNKNOWN")));
         LOGGER.info("{}", discordPost);
         cacheManager.getCache("inventory").put(officialTeslaInventory.getVin(), officialTeslaInventory);
