@@ -15,6 +15,6 @@ public class TeslaInventoryConfig {
 
     @Bean
     public TaskSchedulerCustomizer taskSchedulerCustomizer() {
-        return threadPoolTaskScheduler -> threadPoolTaskScheduler.setPoolSize(6);
+        return threadPoolTaskScheduler -> threadPoolTaskScheduler.setPoolSize(8);
     }
 }
