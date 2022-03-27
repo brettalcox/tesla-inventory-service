@@ -141,6 +141,13 @@ public class TeslaInventoryService {
                 .addLine("Demo/Test Drive Vehicle", officialTeslaInventory.getIsDemo())
                 .addLine("Location", officialTeslaInventory.getLocation())
                 .addLine(discordModelTrimRoleConfig.getRoleByCountryModelTrim(officialTeslaInventory.getCountryCode(), officialTeslaInventory.getModelTrim()))
+                .addLine(discordModelTrimRoleConfig.getRoleByTrimCombo(
+                        officialTeslaInventory.getModel(),
+                        officialTeslaInventory.getTrim(),
+                        Optional.ofNullable(officialTeslaInventory.getCabinConfig()).map(c -> c.get(0)).orElse(null),
+                        Optional.ofNullable(officialTeslaInventory.getPaint()).map(p -> p.get(0)).orElse(null),
+                        Optional.ofNullable(officialTeslaInventory.getInterior()).map(i -> i.get(0)).orElse(null))
+                )
                 .addLine(" ________________________________")
                 .quote(true)
                 .build();
