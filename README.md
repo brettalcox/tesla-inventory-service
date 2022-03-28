@@ -1,4 +1,6 @@
 # Tesla Inventory Service
+**Featured on Vice!** https://www.vice.com/en/article/4aw843/the-tool-that-helps-people-skip-the-tesla-buyer-waitlist
+
 Buying a Tesla is quite a bit different than buying any other car brand. Going through the process of custom ordering a Tesla can take weeks to months, and Tesla's estimated delivery dates are of no help either. Enter, "Existing Inventory". The "Existing Inventory" exists on Tesla's website to locate "New" vehicles within a certain radius of your zip code. The vehicles have many different sources--cancelled/refused deliveries, cars that didn't match to nearby customers, influx of new revisions [LFP batteries], demo/test drive vehicles--but can drastically _decrease_ the amount of time you spend waiting for your vehicle. However, it involves lots of tabs, refreshing, and luck.
 
 This tool is simple: it polls Tesla's inventory API and does the heavy lifting for you. The tool looks for "New" Model 3, Model Y, and Model S (no interest in Model X, yet!), and if it finds any, builds a notification and posts to Discord webhooks. This notification contains a significant amount of information about the listing, including trim, exterior color, interior color, wheels, options, FSD yes/no, price, and most importantly, a direct link to the payment page, which is only a few clicks away from being secured!
