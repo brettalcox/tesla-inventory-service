@@ -15,6 +15,9 @@ public class OfficialTeslaInventory {
     @JsonProperty("TotalPrice")
     private Long totalPrice;
 
+    @JsonProperty("PurchasePrice")
+    private Long purchasePrice;
+
     @JsonProperty("InventoryPrice")
     private Long inventoryPrice;
 
@@ -74,6 +77,18 @@ public class OfficialTeslaInventory {
 
     @JsonProperty("AUTOPILOT")
     private List<String> autopilot;
+
+    @JsonProperty("SalesNotes")
+    private String salesNotes;
+
+    @JsonProperty("ActualGAInDate")
+    private String actualGAInDate;
+
+    @JsonProperty("MarketingInUseDate")
+    private String marketingInUseDate;
+
+    @JsonProperty("Discount")
+    private Long discount;
 
     public String getVin() {
         return vin;
@@ -259,6 +274,38 @@ public class OfficialTeslaInventory {
         this.autopilot = autopilot;
     }
 
+    public String getSalesNotes() {
+        return salesNotes;
+    }
+
+    public void setSalesNotes(String salesNotes) {
+        this.salesNotes = salesNotes;
+    }
+
+    public String getActualGAInDate() {
+        return actualGAInDate;
+    }
+
+    public void setActualGAInDate(String actualGAInDate) {
+        this.actualGAInDate = actualGAInDate;
+    }
+
+    public Long getPurchasePrice() {
+        return purchasePrice;
+    }
+
+    public void setPurchasePrice(Long purchasePrice) {
+        this.purchasePrice = purchasePrice;
+    }
+
+    public String getMarketingInUseDate() {
+        return marketingInUseDate;
+    }
+
+    public void setMarketingInUseDate(String marketingInUseDate) {
+        this.marketingInUseDate = marketingInUseDate;
+    }
+
     public OptionCode getOptionCode(final String groupKey) {
         return Optional.ofNullable(getOptionCodeData())
                 .stream()
@@ -273,6 +320,12 @@ public class OfficialTeslaInventory {
                 .map(oc -> oc.getValue() + oc.getUnitShort())
                 .orElse("");
 
+    }
+
+    public String getZeroToSixty() {
+        return Optional.ofNullable(getOptionCode("SPECS_ACCELERATION"))
+                .map(oc -> oc.getValue() + oc.getUnitShort())
+                .orElse("");
     }
 
     public String getUrl() {
