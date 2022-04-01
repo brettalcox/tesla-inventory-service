@@ -147,7 +147,7 @@ public class TeslaInventoryService {
                 .addLine("** **")
                 .addLine("__**Location/Notes**__")
                 .addLine("Demo/Test Drive Vehicle", officialTeslaInventory.getIsDemo())
-                .addLineIfNotNull("Demo In Use Date", officialTeslaInventory.getMarketingInUseDate())
+                .addLineIfNotNull("Marketing In Use Date", officialTeslaInventory.getMarketingInUseDate())
                 .addLineIfNotNull("Sales Notes", officialTeslaInventory.getSalesNotes())
                 .addLine("GA Date", officialTeslaInventory.getActualGAInDate())
                 .addLine("Location", officialTeslaInventory.getLocation())
