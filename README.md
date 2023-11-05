@@ -1,4 +1,4 @@
-## This repo and the hosted instance are no longer maintained -- if you're looking for an active and up-to-date inventory tracker, checkout out https://waitingfortesla.com/ !
+## This repo and the hosted instance are no longer maintained -- if you're looking for an active and up-to-date inventory tracker, check out https://waitingfortesla.com/ !
 
 # Tesla Inventory Service
 **Featured on Vice!** https://www.vice.com/en/article/4aw843/the-tool-that-helps-people-skip-the-tesla-buyer-waitlist
