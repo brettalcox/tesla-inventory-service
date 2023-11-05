@@ -7,8 +7,6 @@ Buying a Tesla is quite a bit different than buying any other car brand. Going t
 
 This tool is simple: it polls Tesla's inventory API and does the heavy lifting for you. The tool looks for "New" Model 3, Model Y, and Model S (no interest in Model X, yet!), and if it finds any, builds a notification and posts to Discord webhooks. This notification contains a significant amount of information about the listing, including trim, exterior color, interior color, wheels, options, FSD yes/no, price, and most importantly, a direct link to the payment page, which is only a few clicks away from being secured!
 
-Tesla Inventory Discord: https://discord.gg/rAkyXCcQCv
-
 ## Example Notification
 ![Screenshot from 2022-03-26 18-45-52](https://user-images.githubusercontent.com/7462622/160260743-77f20c21-f886-46c0-81d8-7648061a8f66.png)
 
