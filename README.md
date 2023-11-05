@@ -1,3 +1,5 @@
+## This repo and the hosted instance are no longer maintained -- if you're looking for an active and up-to-date inventory tracker, checkout out https://waitingfortesla.com/ !
+
 # Tesla Inventory Service
 **Featured on Vice!** https://www.vice.com/en/article/4aw843/the-tool-that-helps-people-skip-the-tesla-buyer-waitlist
 
@@ -76,14 +78,3 @@ The `<url>` will need to be supplied if this functionality is desired. Currently
 
 ## Other Links
 https://hub.docker.com/repository/docker/brettalcox/tesla-inventory (this includes linux/amd64 and linux/arm64 for RPi)
-https://discord.gg/rAkyXCcQCv
-
-## Support
-My goal with this tool is to help future Tesla owners get their cars quicker. If you found this useful or were able to secure a car from Existing Inventory, consider donating to fund current and future development to make this tool better :)
-
-
-https://cash.app/$tootwrangler
-
-https://www.paypal.com/paypalme/brettalcox?locale.x=en_US
-
-https://venmo.com/code?user_id=2061737712943104185&created=1631624986.961526&printed=1
